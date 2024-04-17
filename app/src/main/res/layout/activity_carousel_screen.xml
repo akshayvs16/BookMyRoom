@@ -1,0 +1,119 @@
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.project.bookmyroom.viewmodel.CarouselViewModel" />
+    </data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageViewCarousel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_above="@id/controlsLayout"
+        android:src="@drawable/img_carousel_1"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:id="@+id/controlsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/textViewHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/carousel_1_heading"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:id="@+id/textViewBodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/carousel_1_body_text"
+            android:textSize="14sp"
+            android:textColor="@color/greyscale500"
+            android:gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Add SliderIndicator, PrimaryButton, SecondaryButton here -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            >
+
+            <!-- SliderIndicator Component -->
+            <LinearLayout
+                android:id="@+id/sliderIndicatorContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/dot1"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/dot_inactive"
+                    android:layout_marginEnd="8dp" />
+
+                <ImageView
+                    android:id="@+id/dot2"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/dot_inactive"
+                    android:layout_marginEnd="8dp" />
+
+                <ImageView
+                    android:id="@+id/dot3"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/dot_inactive"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Add more ImageViews for additional dots -->
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/carousel_button_next"
+            android:backgroundTint="@color/primary500"
+            android:textColor="@color/white"
+
+            android:layout_marginStart="16dp" />
+
+        <!-- Secondary Button -->
+        <Button
+            android:id="@+id/skipButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary100"
+            android:text="@string/carousel_button_skip"
+            android:textColor="@color/primary500"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+
+
+</RelativeLayout>
+</layout>

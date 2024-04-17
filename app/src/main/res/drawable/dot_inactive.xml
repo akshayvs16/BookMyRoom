@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/card_opacity25_green" />
+    <size
+        android:width="10dp"
+        android:height="10dp" />
+</shape>

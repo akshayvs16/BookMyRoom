@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="card_opacity25_green">#450D1718</color>
+
+    <color name="primary500">#1AB65C</color>
+    <color name="primary400">#48C57D</color>
+    <color name="primary300">#76D39D</color>
+    <color name="primary200">#A3E2BE</color>
+    <color name="primary100">#E8F8EF</color>
+
+    <color name="secondary500">#FFD300</color>
+    <color name="secondary400">#FFDC33</color>
+    <color name="secondary300">#FFE566</color>
+    <color name="secondary200">#FFED99</color>
+    <color name="secondary100">#FFFFBE</color>
+
+    <!-- Alert & Status -->
+    <color name="success">#4ADE80</color>
+    <color name="info">#246BFD</color>
+    <color name="warning">#FACC15</color>
+    <color name="error">#F75555</color>
+    <color name="disabled">#D8D8D8</color>
+    <color name="buttonDisabled">#53A777</color>
+
+    <color name="greyscale900">#212121</color>
+    <color name="greyscale800">#424242</color>
+    <color name="greyscale700">#616161</color>
+    <color name="greyscale600">#757575</color>
+    <color name="greyscale500">#9E9E9E</color>
+    <color name="greyscale400">#BDBDBD</color>
+    <color name="greyscale300">#E0E0E0</color>
+    <color name="greyscale200">#EEEEEE</color>
+    <color name="greyscale100">#F5F5F5</color>
+    <color name="greyscale50">#FAFAFA</color>
+
+
+</resources>
