@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.ActivityLoginBinding
+import com.project.bookmyroom.view.fragments.ui.login.LoginFragment
 import com.project.bookmyroom.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -22,12 +25,14 @@ class LoginActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         // Bind click listeners
-        binding.btnSignIn.setOnClickListener {
-            viewModel.onSignInButtonClick()
-        }
+
 
         binding.btnLogin.setOnClickListener {
-            viewModel.onLoginButtonClick()
+            viewModel.onLoginButtonClick(this@LoginActivity)
+        }
+
+        binding.btnSignUp.setOnClickListener {
+            viewModel.onSignUpButtonClick(this@LoginActivity)
         }
     }
 }
