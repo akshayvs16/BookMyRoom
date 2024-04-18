@@ -33,10 +33,15 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
+        val view = binding.root
 
+        val btnBack = binding.btnBack
+        btnBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

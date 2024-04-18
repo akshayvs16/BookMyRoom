@@ -1,6 +1,7 @@
 package com.project.bookmyroom.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -28,11 +29,32 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.btnLogin.setOnClickListener {
+            binding.main2.visibility= View.GONE
             viewModel.onLoginButtonClick(this@LoginActivity)
         }
 
         binding.btnSignUp.setOnClickListener {
+            binding.main2.visibility= View.GONE
+            binding.textViewSignUp.setText("Already signed up?")
+            binding.btnSignUp.setText("Sign in")
             viewModel.onSignUpButtonClick(this@LoginActivity)
         }
+
+        if (binding.btnSignUp.text=="Sign in"){
+            binding.btnSignUp.setOnClickListener {
+                binding.main2.visibility= View.GONE
+                viewModel.onLoginButtonClick(this@LoginActivity)
+            }
+
+        }
+    }
+
+    override fun onBackPressed() {
+        if (binding.main2.visibility == View.GONE) {
+            // If main2 layout is hidden, show it and return
+            binding.main2.visibility = View.VISIBLE
+            return
+        }
+        super.onBackPressed()
     }
 }
