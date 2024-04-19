@@ -1,11 +1,11 @@
 package com.project.bookmyroom.viewmodel;
 
-public class RecentsData {
+public class TopPlacesData {
 
     String placeName;
     String countryName;
     String price;
-    String imageUrl; // Changed to String
+    String imageUrl;
 
     public String getImageUrl() { // Changed to return String
         return imageUrl;
@@ -14,8 +14,7 @@ public class RecentsData {
     public void setImageUrl(String imageUrl) { // Changed parameter type to String
         this.imageUrl = imageUrl;
     }
-
-    public RecentsData(String placeName, String countryName, String price, String imageUrl) { // Changed parameter type to String
+    public TopPlacesData(String placeName, String countryName, String price, String imageUrl) {
         this.placeName = placeName;
         this.countryName = countryName;
         this.price = price;
