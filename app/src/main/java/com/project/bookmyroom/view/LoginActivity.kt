@@ -2,6 +2,8 @@ package com.project.bookmyroom.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -9,44 +11,31 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.ActivityLoginBinding
+import com.project.bookmyroom.view.fragments.SignUpFragment
 import com.project.bookmyroom.view.fragments.ui.login.LoginFragment
 import com.project.bookmyroom.viewmodel.LoginViewModel
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel = LoginViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         // Initialize data binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-
+        val group = findViewById<RadioGroup>(R.id.radio_group)
+        group.setOnCheckedChangeListener(this)
+        replaceFragment(R.id.frame_Layout_container, LoginFragment())
         // Bind click listeners
 
 
-        binding.btnLogin.setOnClickListener {
-            binding.main2.visibility= View.GONE
-            viewModel.onLoginButtonClick(this@LoginActivity)
-        }
 
-        binding.btnSignUp.setOnClickListener {
-            binding.main2.visibility= View.GONE
-            binding.textViewSignUp.setText("Already signed up?")
-            binding.btnSignUp.setText("Sign in")
-            viewModel.onSignUpButtonClick(this@LoginActivity)
-        }
 
-        if (binding.btnSignUp.text=="Sign in"){
-            binding.btnSignUp.setOnClickListener {
-                binding.main2.visibility= View.GONE
-                viewModel.onLoginButtonClick(this@LoginActivity)
-            }
 
-        }
+
     }
 
     override fun onBackPressed() {
@@ -56,5 +45,21 @@ class LoginActivity : AppCompatActivity() {
             return
         }
         super.onBackPressed()
+    }
+
+    override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+        val checkRadioButton = group?.findViewById<RadioButton>(group.checkedRadioButtonId)
+
+        checkRadioButton?.let {
+
+            when (checkRadioButton.id) {
+                R.id.login_radio_button -> {
+                    replaceFragment(R.id.frame_Layout_container, LoginFragment())
+                }
+                else -> {
+                    replaceFragment(R.id.frame_Layout_container, SignUpFragment())
+                }
+            }
+        }
     }
 }
