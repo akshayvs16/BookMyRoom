@@ -9,11 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rajendra.vacationtourapp.DetailsActivity;
-import com.rajendra.vacationtourapp.R;
-import com.rajendra.vacationtourapp.model.RecentsData;
+
+import com.project.bookmyroom.R;
+import com.project.bookmyroom.viewmodel.RecentsData;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
     @Override
     public RecentsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.recents_row_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recents_hotels_row_item, parent, false);
 
         // here we create a recyclerview row item layout file
         return new RecentsViewHolder(view);
@@ -48,8 +49,8 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(context, DetailsActivity.class);
-                context.startActivity(i);
+                /*Intent i=new Intent(context, DetailsActivity.class);
+                context.startActivity(i);*/
             }
         });
 
@@ -68,7 +69,7 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
         public RecentsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            placeImage = itemView.findViewById(R.id.place_image);
+            placeImage = itemView.findViewById(R.id.place_image2);
             placeName = itemView.findViewById(R.id.place_name);
             countryName = itemView.findViewById(R.id.country_name);
             price = itemView.findViewById(R.id.price);
