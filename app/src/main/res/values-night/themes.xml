@@ -3,8 +3,14 @@
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="android:fontFamily">@font/urbanist_semibold</item>
+        <item name="colorOnPrimary">@color/primary500</item>
+        <item name="background">@color/white</item>
 
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
 
+    </style>
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize other attributes -->
+        <item name="android:windowBackground">@color/white</item>
     </style>
 </resources>

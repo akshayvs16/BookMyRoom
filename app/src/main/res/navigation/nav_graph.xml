@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/navigation_home">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.project.bookmyroom.view.fragments.ui.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login"
-        />
+        android:id="@+id/navigation_home"
+        android:name="com.project.bookmyroom.view.fragments.HomeFragment"
+        android:label="@string/destination_home" />
+
     <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.project.bookmyroom.view.fragments.SignUpFragment"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        android:id="@+id/navigation_search"
+        android:name="com.project.bookmyroom.view.fragments.SearchFragment"
+        android:label="@string/destination_search" />
+
+    <fragment
+        android:id="@+id/navigation_booking"
+        android:name="com.project.bookmyroom.view.fragments.MyBookingFragment"
+        android:label="@string/destination_booking" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.project.bookmyroom.view.fragments.ProfileFragment"
+        android:label="@string/destination_profile" />
+
 </navigation>
