@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragments.HomeFragment"
     android:background="@color/white">
     <LinearLayout
@@ -122,7 +123,52 @@
                     android:orientation="horizontal">
 
                     <!-- Chip 1 -->
-                    <TextView
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabMode="fixed">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/chipRecommended"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hotel_category_recommended"
+                            android:textColor="@color/black"
+                            android:background="@color/primary500"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="8dp"
+                            android:layout_marginEnd="8dp"
+                            />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/chipPopular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hotel_category_popular"
+                            android:textColor="@color/black"
+                            android:background="@drawable/dot_inactive"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="8dp"
+                            android:layout_marginEnd="8dp"
+                            />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/chipTrending"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hotel_category_trending"
+                            android:textColor="@color/black"
+                            android:background="@drawable/dot_inactive"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="8dp"
+                            />
+
+
+
+                    </com.google.android.material.tabs.TabLayout>
+                  <!--  <TextView
+                        android:id="@+id/chipRecommended"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hotel_category_recommended"
@@ -132,8 +178,9 @@
                         android:paddingVertical="8dp"
                         android:layout_marginEnd="8dp" />
 
-                    <!-- Chip 2 -->
+                    &lt;!&ndash; Chip 2 &ndash;&gt;
                     <TextView
+                        android:id="@+id/chipPopular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hotel_category_popular"
@@ -143,15 +190,16 @@
                         android:paddingVertical="8dp"
                         android:layout_marginEnd="8dp" />
 
-                    <!-- Chip 3 -->
+                    &lt;!&ndash; Chip 3 &ndash;&gt;
                     <TextView
+                        android:id="@+id/chipTrending"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hotel_category_trending"
                         android:textColor="@color/black"
                         android:background="@drawable/dot_inactive"
                         android:paddingHorizontal="12dp"
-                        android:paddingVertical="8dp" />
+                        android:paddingVertical="8dp" />-->
 
                 </LinearLayout>
 
@@ -165,7 +213,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recent_recycler"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginTop="8dp"
                             android:orientation="horizontal"
                             tools:listitem="@layout/recents_hotels_row_item"
@@ -180,7 +228,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_screen_recently_booked"
+                    android:text="Near To You"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -195,11 +243,11 @@
 
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/top_places_recycler"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/near_places_recycler"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-
+                            tools:listitem="@layout/recents_hotels_row_item"
                           />
 
 

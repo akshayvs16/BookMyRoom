@@ -13,29 +13,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.project.bookmyroom.R;
 import com.project.bookmyroom.viewmodel.RecentsData;
+import com.project.bookmyroom.viewmodel.TopPlacesData;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsViewHolder> {
+
+public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.TopPlacesViewHolder> {
 
     Context context;
-    List<RecentsData> recentsDataList;
+    List<TopPlacesData> topPlacesDataList;
 
-    public RecentsAdapter(Context context, List<RecentsData> recentsDataList) {
+    public TopPlacesAdapter(Context context, List<TopPlacesData> topPlacesDataList) {
         this.context = context;
-        this.recentsDataList = recentsDataList;
+        this.topPlacesDataList = topPlacesDataList;
     }
 
     @NonNull
     @Override
-    public RecentsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recents_hotels_row_item, parent, false);
-        return new RecentsViewHolder(view);
+    public TopPlacesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(context).inflate(R.layout.near_hotels_row_item, parent, false);
+
+        // here we create a recyclerview row item layout file
+        return new TopPlacesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecentsViewHolder holder, int position) {
-        RecentsData currentItem = recentsDataList.get(position);
+    public void onBindViewHolder(@NonNull TopPlacesViewHolder holder, int position) {
+
+        TopPlacesData currentItem = topPlacesDataList.get(position);
 
         holder.countryName.setText(currentItem.getCountryName());
         holder.placeName.setText(currentItem.getPlaceName());
@@ -44,8 +52,8 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
         // Load image using Glide
         Glide.with(context)
                 .load(currentItem.getImageUrl()) // Assuming imageUrl is a valid URL string
-               /* .placeholder(R.drawable.placeholder_image) // Placeholder image while loading
-                .error(R.drawable.error_image) // Error image if loading fails*/
+                /* .placeholder(R.drawable.placeholder_image) // Placeholder image while loading
+                 .error(R.drawable.error_image) // Error image if loading fails*/
                 .into(holder.placeImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,24 +67,30 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
 
     @Override
     public int getItemCount() {
-        return recentsDataList.size();
+        return topPlacesDataList.size();
     }
-    public void setData(List<RecentsData> newData) {
-        recentsDataList.clear();
-        recentsDataList.addAll(newData);
+
+    public void setData(@Nullable List<TopPlacesData> data) {
+        topPlacesDataList.clear();
+        if (data != null) {
+            topPlacesDataList.addAll(data);
+        }
         notifyDataSetChanged();
     }
 
-    public static final class RecentsViewHolder extends RecyclerView.ViewHolder {
+    public static final class TopPlacesViewHolder extends RecyclerView.ViewHolder{
+
         ImageView placeImage;
         TextView placeName, countryName, price;
 
-        public RecentsViewHolder(@NonNull View itemView) {
+        public TopPlacesViewHolder(@NonNull View itemView) {
             super(itemView);
-            placeImage = itemView.findViewById(R.id.place_image2);
+
+            placeImage = itemView.findViewById(R.id.place_image);
             placeName = itemView.findViewById(R.id.place_name);
             countryName = itemView.findViewById(R.id.country_name);
             price = itemView.findViewById(R.id.price);
+
         }
     }
 }

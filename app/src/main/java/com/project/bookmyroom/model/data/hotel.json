@@ -1,0 +1,20 @@
+[
+  {
+    "placeName": "AM Lake",
+    "countryName": "India",
+    "price": "From 3200",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfDPebFlQzyIRia-JztorQk4EPKvN7NlL_pg&s"
+  },
+  {
+    "placeName": "Nilgiri Hills",
+    "countryName": "India",
+    "price": "From 2300",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfDPebFlQzyIRia-JztorQk4EPKvN7NlL_pg&s"
+  },
+  {
+    "placeName": "Himalayan Retreat",
+    "countryName": "India",
+    "price": "From 4250",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfDPebFlQzyIRia-JztorQk4EPKvN7NlL_pg&s"
+  }
+]

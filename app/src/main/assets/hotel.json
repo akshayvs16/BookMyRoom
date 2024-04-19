@@ -1,0 +1,70 @@
+[
+  {
+    "placeName": "AM Lake",
+    "countryName": "India",
+    "price": "From 3200",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfDPebFlQzyIRia-JztorQk4EPKvN7NlL_pg&s"
+  },
+    {
+      "placeName": "Kerala Beach Resort",
+      "countryName": "India",
+      "price": "From 3500",
+      "imageUrl": "https://example.com/image1.jpg"
+    },
+    {
+      "placeName": "Backwater Paradise",
+      "countryName": "India",
+      "price": "From 2800",
+      "imageUrl": "https://example.com/image2.jpg"
+    },
+    {
+      "placeName": "Mountain View Retreat",
+      "countryName": "India",
+      "price": "From 3200",
+      "imageUrl": "https://example.com/image3.jpg"
+    },
+    {
+      "placeName": "Coastal Serenity",
+      "countryName": "India",
+      "price": "From 4000",
+      "imageUrl": "https://example.com/image4.jpg"
+    },
+    {
+      "placeName": "Luxury Lakeside Villa",
+      "countryName": "India",
+      "price": "From 4500",
+      "imageUrl": "https://example.com/image5.jpg"
+    },
+    {
+      "placeName": "Tropical Hideaway",
+      "countryName": "India",
+      "price": "From 3800",
+      "imageUrl": "https://example.com/image6.jpg"
+    },
+    {
+      "placeName": "Riverside Bliss",
+      "countryName": "India",
+      "price": "From 3100",
+      "imageUrl": "https://example.com/image7.jpg"
+    },
+    {
+      "placeName": "Hilltop Retreat",
+      "countryName": "India",
+      "price": "From 4200",
+      "imageUrl": "https://example.com/image8.jpg"
+    },
+    {
+      "placeName": "Seaside Escape",
+      "countryName": "India",
+      "price": "From 3900",
+      "imageUrl": "https://example.com/image9.jpg"
+    },
+    {
+      "placeName": "Lakeview Haven",
+      "countryName": "India",
+      "price": "From 3700",
+      "imageUrl": "https://example.com/image10.jpg"
+    }
+
+
+]

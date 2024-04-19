@@ -1,0 +1,32 @@
+[
+  {
+    "placeName": "Leela Kovalam Beach",
+    "countryName": "India",
+    "price": "From 6000",
+    "imageUrl": "https://example.com/images/leela_kovalam.jpg"
+  },
+  {
+    "placeName": "Vivanta by Taj - Bekal",
+    "countryName": "India",
+    "price": "From 7500",
+    "imageUrl": "https://example.com/images/vivanta_bekal.jpg"
+  },
+  {
+    "placeName": "Marari Beach Resort",
+    "countryName": "India",
+    "price": "From 5000",
+    "imageUrl": "https://example.com/images/marari_beach_resort.jpg"
+  },
+  {
+    "placeName": "Brunton Boatyard",
+    "countryName": "India",
+    "price": "From 9000",
+    "imageUrl": "https://example.com/images/brunton_boatyard.jpg"
+  },
+  {
+    "placeName": "The Zuri Kumarakom",
+    "countryName": "India",
+    "price": "From 8000",
+    "imageUrl": "https://example.com/images/zuri_kumarakom.jpg"
+  }
+]

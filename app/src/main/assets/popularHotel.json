@@ -1,0 +1,32 @@
+[
+  {
+    "placeName": "Kerala Beach Resort",
+    "countryName": "India",
+    "price": "From 3500",
+    "imageUrl": "https://example.com/images/kerala_beach_resort.jpg"
+  },
+  {
+    "placeName": "Backwater Paradise",
+    "countryName": "India",
+    "price": "From 2800",
+    "imageUrl": "https://example.com/images/backwater_paradise.jpg"
+  },
+  {
+    "placeName": "Tea Plantation Retreat",
+    "countryName": "India",
+    "price": "From 3200",
+    "imageUrl": "https://example.com/images/tea_plantation_retreat.jpg"
+  },
+  {
+    "placeName": "Kerala Heritage Villa",
+    "countryName": "India",
+    "price": "From 3800",
+    "imageUrl": "https://example.com/images/kerala_heritage_villa.jpg"
+  },
+  {
+    "placeName": "Hill Station Haven",
+    "countryName": "India",
+    "price": "From 4100",
+    "imageUrl": "https://example.com/images/hill_station_haven.jpg"
+  }
+]
