@@ -61,15 +61,15 @@ class LoginFragment : Fragment() {
 
         usernameEditText = binding.username
         passwordEditText = binding.password
-        loginButton = binding.login
+        loginButton = binding.signIn
         loadingProgressBar = binding.loading
         rememberMeCheckbox = binding.rememberMe
 
 
 
-        // Restore saved username and password
+       /* // Restore saved username and password
         usernameEditText.setText(sharedPreferences.getString(KEY_USERNAME, ""))
-        passwordEditText.setText(sharedPreferences.getString(KEY_PASSWORD, ""))
+        passwordEditText.setText(sharedPreferences.getString(KEY_PASSWORD, ""))*/
 
 
         if (rememberMeCheckbox.isChecked &&
@@ -166,11 +166,11 @@ class LoginFragment : Fragment() {
                 loginResult.success?.let {
                     updateUiWithUser(it)
                     if (rememberMeCheckbox.isChecked) {
-                        preferenceManager.saveCredentials(
+                       /* preferenceManager.saveCredentials(
                             usernameEditText.text.toString(),
                             passwordEditText.text.toString(),
 
-                            )
+                            )*/
                     } else {
                         // Clear saved credentials if "Remember Me" is not checked
                         preferenceManager.clearCredentials()

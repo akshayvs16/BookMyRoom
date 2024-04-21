@@ -59,7 +59,7 @@ class DetailsActivity : AppCompatActivity() {
         hotelsList.clear()
         hotelsList.addAll(dataList)
 
-        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         hotelsRecyclerView.layoutManager = layoutManager
         hotelsAdapter = RecentsAdapter(this, hotelsList)
         hotelsRecyclerView.adapter = hotelsAdapter

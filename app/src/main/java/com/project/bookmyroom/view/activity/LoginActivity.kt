@@ -15,15 +15,15 @@ import com.project.bookmyroom.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel: LoginViewModel = LoginViewModel()
+   // private val viewModel: LoginViewModel = LoginViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Initialize data binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        /*binding.viewModel = viewModel
+        binding.lifecycleOwner = this*/
         val group = findViewById<RadioGroup>(R.id.radio_group)
         group.setOnCheckedChangeListener(this)
         replaceFragment(R.id.frame_Layout_container, LoginFragment())
@@ -54,8 +54,11 @@ class LoginActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
                 R.id.login_radio_button -> {
                     replaceFragment(R.id.frame_Layout_container, LoginFragment())
                 }
-                else -> {
+                R.id.signup_radio_button ->{
                     replaceFragment(R.id.frame_Layout_container, SignUpFragment())
+
+                }
+                else -> {
                 }
             }
         }
