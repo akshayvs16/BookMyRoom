@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/place_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+
+        android:src="@drawable/img_carousel_2" />
+
+    <TextView
+        android:id="@+id/place_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/place_image"
+        android:textSize="30sp"
+        android:padding="10dp"
+        android:text="VARKALA"/>
+    <TextView
+        android:id="@+id/description_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/place_heading"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:text="Description of the place goes here." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hotels_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description_text"
+        android:padding="16dp" />
+
+</RelativeLayout>

@@ -1,9 +1,8 @@
-package com.project.bookmyroom.view
+package com.project.bookmyroom.view.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.ActivityCarouselScreenBinding

@@ -3,30 +3,80 @@
     "placeName": "Leela Kovalam Beach",
     "countryName": "India",
     "price": "From 6000",
-    "imageUrl": "https://example.com/images/leela_kovalam.jpg"
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/34223229.jpg?k=9826fa689c3fe157ca6b584a07c5456c6a241078e79250dd26db46f94ca77cfa&o=&hp=1",
+    "address": "Kovalam Beach Road, Kovalam, Thiruvananthapuram, Kerala",
+    "contactNumber": "+91 471 305 1234"
   },
   {
     "placeName": "Vivanta by Taj - Bekal",
     "countryName": "India",
     "price": "From 7500",
-    "imageUrl": "https://example.com/images/vivanta_bekal.jpg"
+    "imageUrl": "https://pix10.agoda.net/hotelImages/294/294399/294399_14071015070020221259.jpg?ca=2&ce=1&s=414x232&ar=16x9",
+    "address": "Kappil Beach, Bekal Fort, Kasaragod, Kerala",
+    "contactNumber": "+91 467 661 6612"
   },
   {
     "placeName": "Marari Beach Resort",
     "countryName": "India",
     "price": "From 5000",
-    "imageUrl": "https://example.com/images/marari_beach_resort.jpg"
+    "imageUrl": "",
+    "address": "S.L. Puram, Mararikulam, Alappuzha, Kerala",
+    "contactNumber": "+91 478 286 3801"
   },
   {
     "placeName": "Brunton Boatyard",
     "countryName": "India",
     "price": "From 9000",
-    "imageUrl": "https://example.com/images/brunton_boatyard.jpg"
+    "imageUrl": "",
+    "address": "Calvetty Road, Fort Kochi, Kochi, Kerala",
+    "contactNumber": "+91 484 221 5461"
   },
   {
     "placeName": "The Zuri Kumarakom",
     "countryName": "India",
     "price": "From 8000",
-    "imageUrl": "https://example.com/images/zuri_kumarakom.jpg"
+    "imageUrl": "",
+    "address": "V 235 A1 to A54, Karottukayal, Kumarakom, Kerala",
+    "contactNumber": "+91 481 252 7272"
+  },
+  {
+    "placeName": "Hycinth Hotels",
+    "countryName": "India",
+    "price": "From 5500",
+    "imageUrl": "",
+    "address": "Manorama Road, Thampanoor, Thiruvananthapuram, Kerala",
+    "contactNumber": "+91 471 718 4444"
+  },
+  {
+    "placeName": "Uday Suites",
+    "countryName": "India",
+    "price": "From 4000",
+    "imageUrl": "",
+    "address": "TC 34/757, Watts Lane, Beach PO, Shangumugham, Thiruvananthapuram, Kerala",
+    "contactNumber": "+91 471 245 9000"
+  },
+  {
+    "placeName": "Hilton Garden Inn Trivandrum",
+    "countryName": "India",
+    "price": "From 6500",
+    "imageUrl": "",
+    "address": "Punnen Road, Thiruvananthapuram, Kerala",
+    "contactNumber": "+91 471 660 0000"
+  },
+  {
+    "placeName": "Keys Select Hotel Thiruvananthapuram",
+    "countryName": "India",
+    "price": "From 5000",
+    "imageUrl": "",
+    "address": "TC 9/1049, Manorama Road, PMG Junction, Thiruvananthapuram, Kerala",
+    "contactNumber": "+91 471 394 4100"
+  },
+  {
+    "placeName": "Trivandrum Hotel",
+    "countryName": "India",
+    "price": "From 3000",
+    "imageUrl": "",
+    "address": "MG Road, Thiruvananthapuram, Kerala",
+    "contactNumber": "+91 471 272 6633"
   }
 ]

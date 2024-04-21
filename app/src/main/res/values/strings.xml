@@ -1,7 +1,7 @@
 <resources>
     <string name="web_client_id">958995698022-jj0l89ijnm3d3mt9s0oc5st8m2c5aq1l.apps.googleusercontent.com</string>
 
-    <string name="app_name">Room</string>
+    <string name="app_name">K-Tourism</string>
     <string name="welcome_screen_title">Welcome to 👋</string>
     <string name="welcome_screen_subtitle">The best hotel booking in this century to accompany your vacation</string>
     <string name="username_input_field_placeholder">Username</string>

@@ -1,4 +1,4 @@
-package com.project.bookmyroom.view
+package com.project.bookmyroom.view.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle

@@ -1,25 +1,23 @@
 package com.project.bookmyroom.viewmodel;
 
-public class RecentsData {
+import java.io.Serializable;
+
+public class RecentsData implements Serializable {
 
     String placeName;
     String countryName;
     String price;
-    String imageUrl; // Changed to String
+    String imageUrl;
+    String address;
+    String contactNumber;
 
-    public String getImageUrl() { // Changed to return String
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) { // Changed parameter type to String
-        this.imageUrl = imageUrl;
-    }
-
-    public RecentsData(String placeName, String countryName, String price, String imageUrl) { // Changed parameter type to String
+    public RecentsData(String placeName, String countryName, String price, String imageUrl, String address, String contactNumber) {
         this.placeName = placeName;
         this.countryName = countryName;
         this.price = price;
         this.imageUrl = imageUrl;
+        this.address = address;
+        this.contactNumber = contactNumber;
     }
 
     public String getPlaceName() {
@@ -44,5 +42,29 @@ public class RecentsData {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 }

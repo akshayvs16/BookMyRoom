@@ -22,8 +22,7 @@ import android.widget.Toast
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.FragmentLoginBinding
 import com.project.bookmyroom.preference.PreferenceManager
-import com.project.bookmyroom.view.CarouselScreenActivity
-import com.project.bookmyroom.view.MainActivity
+import com.project.bookmyroom.view.activity.MainActivity
 
 
 class LoginFragment : Fragment() {

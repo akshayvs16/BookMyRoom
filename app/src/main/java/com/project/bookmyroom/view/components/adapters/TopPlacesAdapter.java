@@ -1,6 +1,7 @@
 package com.project.bookmyroom.view.components.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.project.bookmyroom.R;
-import com.project.bookmyroom.viewmodel.RecentsData;
+import com.project.bookmyroom.view.activity.DetailsActivity;
 import com.project.bookmyroom.viewmodel.TopPlacesData;
 
 import org.jetbrains.annotations.Nullable;
@@ -59,8 +60,9 @@ public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.TopP
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent i=new Intent(context, DetailsActivity.class);
-                context.startActivity(i);*/
+                Intent i=new Intent(context, DetailsActivity.class);
+                i.putExtra("PLACE_DATA", currentItem);
+                context.startActivity(i);
             }
         });
     }

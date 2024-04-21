@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/hotel_image_place"
+        android:layout_width="match_parent"
+        android:layout_height="255dp"
+        android:cropToPadding="true"
+        android:src="@drawable/img_carousel_2"/>
+    <TextView
+        android:id="@+id/hotel_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hotel Name: "
+        android:layout_below="@+id/hotel_image_place"
+        android:padding="10dp"
+        android:paddingStart="5dp"
+        android:textSize="28sp" />
+    <TextView
+        android:id="@+id/textViewAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hotel Address: "
+        android:padding="5dp"
+        android:layout_below="@+id/hotel_name"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textViewContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@id/textViewAddress"
+        android:text="Contact Number: "
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextCheckInDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewContact"
+        android:hint="Check-In Date"
+        android:padding="5dp"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/editTextCheckOutDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextCheckInDate"
+        android:hint="Check-Out Date"
+        android:padding="5dp"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/editTextRooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextCheckOutDate"
+        android:hint="Number of Rooms"
+        android:padding="5dp"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editTextPersons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextRooms"
+        android:hint="Number of Persons"
+        android:padding="5dp"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/buttonBookNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextPersons"
+        android:layout_marginTop="50dp"
+        android:padding="15dp"
+        android:text="Book Now" />
+
+</RelativeLayout>

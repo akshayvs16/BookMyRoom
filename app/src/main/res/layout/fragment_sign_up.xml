@@ -41,18 +41,33 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="100dp"
             />
-
         <EditText
             android:id="@+id/username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
+            android:hint="Name"
+            android:inputType="text"
             android:selectAllOnFocus="true"
             app:layout_constraintTop_toBottomOf="@id/sign_in_screen_heading"
             app:layout_constraintBottom_toTopOf="@+id/sign_in_screen_heading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/user_email_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            app:layout_constraintTop_toBottomOf="@id/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +87,7 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username"
+            app:layout_constraintTop_toBottomOf="@+id/user_email_input"
             />
         <CheckBox
             android:id="@+id/remember_me"
@@ -83,7 +98,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"/>
         <Button
-            android:id="@+id/login"
+            android:id="@+id/sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"

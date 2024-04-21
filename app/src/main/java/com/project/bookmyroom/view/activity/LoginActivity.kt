@@ -1,18 +1,16 @@
-package com.project.bookmyroom.view
+package com.project.bookmyroom.view.activity
 
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.ActivityLoginBinding
 import com.project.bookmyroom.view.fragments.SignUpFragment
 import com.project.bookmyroom.view.fragments.ui.login.LoginFragment
+import com.project.bookmyroom.view.replaceFragment
 import com.project.bookmyroom.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {

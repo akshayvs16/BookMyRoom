@@ -1,11 +1,17 @@
 package com.project.bookmyroom.viewmodel;
+import java.io.Serializable;
 
-public class TopPlacesData {
+public class TopPlacesData  implements Serializable {
 
     String placeName;
     String countryName;
     String price;
     String imageUrl;
+
+
+
+    String description;
+
 
     public String getImageUrl() { // Changed to return String
         return imageUrl;
@@ -14,11 +20,12 @@ public class TopPlacesData {
     public void setImageUrl(String imageUrl) { // Changed parameter type to String
         this.imageUrl = imageUrl;
     }
-    public TopPlacesData(String placeName, String countryName, String price, String imageUrl) {
+    public TopPlacesData(String placeName, String countryName, String price, String imageUrl,String description) {
         this.placeName = placeName;
         this.countryName = countryName;
         this.price = price;
         this.imageUrl = imageUrl;
+        this.description=description;
     }
 
     public String getPlaceName() {
@@ -43,5 +50,13 @@ public class TopPlacesData {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

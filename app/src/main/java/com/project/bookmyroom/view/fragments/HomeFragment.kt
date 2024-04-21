@@ -38,16 +38,23 @@ class HomeFragment : Fragment() {
     private var nearPlacesAdapter: TopPlacesAdapter? = null
 
 
+    private lateinit var recommendedData: List<RecentsData>
+    private lateinit var popularData: List<RecentsData>
+    private lateinit var trendingData: List<RecentsData>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+        recommendedData = getRecommendedData()
+        popularData = getPopularData()
+        trendingData = getTrendingData()
 
         // Initialize RecyclerView
         recentRecycler = view.findViewById(R.id.recent_recycler)
         nearPlaceRecycler = view.findViewById(R.id.near_places_recycler)
-        setRecentRecycler(getRecommendedData()) // Default: Recommended data
+        setRecentRecycler(recommendedData) // Default: Recommended data
         setNearPlacesRecycler(getNearPlacesData()) // Default: Recommended data
 
         // Setup category chips click listeners
@@ -57,24 +64,45 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupCategoryChips() {
-        val recommendedChip = view?.findViewById<TextView>(R.id.chipRecommended)
+       /* val recommendedChip = view?.findViewById<TextView>(R.id.chipRecommended)
         val popularChip = view?.findViewById<TextView>(R.id.chipPopular)
         val trendingChip = view?.findViewById<TextView>(R.id.chipTrending)
 
         recommendedChip?.setOnClickListener {
+
             setRecentRecycler(getRecommendedData())
         }
 
         popularChip?.setOnClickListener {
-            setRecentRecycler(getPopularData())
+            setRecentRecycler_2(getPopularData())
         }
 
         trendingChip?.setOnClickListener {
-            setRecentRecycler(getTrendingData())
-        }
+            setRecentRecycler_3(getTrendingData())
+        }*/
     }
 
     private fun setRecentRecycler(dataList: List<RecentsData>) {
+        recentDataList.clear()
+        recentDataList.addAll(dataList)
+
+        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        recentRecycler.layoutManager = layoutManager
+        recentAdapter = RecentsAdapter(requireContext(), recentDataList)
+        recentRecycler.adapter = recentAdapter
+        recentRecycler.invalidate()
+    }
+    private fun setRecentRecycler_2(dataList: List<RecentsData>) {
+        recentDataList.clear()
+        recentDataList.addAll(dataList)
+
+        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        recentRecycler.layoutManager = layoutManager
+        recentAdapter = RecentsAdapter(requireContext(), recentDataList)
+        recentRecycler.adapter = recentAdapter
+        recentRecycler.invalidate()
+    }
+    private fun setRecentRecycler_3(dataList: List<RecentsData>) {
         recentDataList.clear()
         recentDataList.addAll(dataList)
 
