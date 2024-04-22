@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragments.HomeFragment"
-    android:background="@color/white">
+    android:background="@drawable/home_bg">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,17 +25,15 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_notification_border"
                 android:contentDescription="@string/home_screen_cd_notifications"
-                android:onClick="@{onNotificationsClick}"
                 android:layout_alignParentEnd="true" />
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/btnBookmarks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_bookmark_border"
                 android:contentDescription="@string/home_screen_cd_my_bookmarks"
-                android:onClick="@{onBookmarksClick}"
-                android:layout_toStartOf="@id/btnNotifications" />
+                android:layout_toStartOf="@id/btnNotifications" />-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,14 +54,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingHorizontal="24dp"
                 android:paddingTop="24dp"
-                android:paddingBottom="24dp">
+                android:paddingBottom="24dp"
+                >
 
                 <!-- Greeting -->
                 <TextView
+                    android:id="@+id/home_screen_greeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home_screen_greeting"
@@ -74,7 +74,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/search_bg"
 
@@ -84,32 +84,37 @@
                     <ImageView
                         android:id="@+id/searchIcon"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_search_border"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_location"
                         android:contentDescription="@null"
                         android:layout_gravity="center_vertical"
                         android:padding="8dp" />
 
                     <!-- Search EditText -->
-                    <EditText
-                        android:id="@+id/searchEditText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/currentLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:hint="@string/search_bar_placeholder"
-                        android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
-                        android:layout_gravity="center_vertical" />
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="20sp"
+                        android:textColor="@color/greyscale500"
+                        android:textStyle="bold"
+                        android:text="Trivandrum"
+                         />
 
                     <!-- Filter Icon -->
                     <ImageView
                         android:id="@+id/filterIcon"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_filter_border"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_arrow_right"
                         android:contentDescription="@string/cd_filter_icon"
                         android:padding="8dp"
                         android:layout_gravity="center_vertical" />
@@ -129,87 +134,10 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:layout_marginTop="16dp" />
-                    <!-- Chip 1 -->
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:tabMode="fixed">
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        />
 
-                       <!-- <com.google.android.material.tabs.TabItem
-                            android:id="@+id/chipRecommended"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/hotel_category_recommended"
-                            android:textColor="@color/black"
-                            android:background="@color/primary500"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp"
-                            android:layout_marginEnd="8dp"
-                            />-->
-
-<!--                        <com.google.android.material.tabs.TabItem-->
-<!--                            android:id="@+id/chipPopular"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/hotel_category_popular"-->
-<!--                            android:visibility="gone"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:background="@drawable/dot_inactive"-->
-<!--                            android:paddingHorizontal="12dp"-->
-<!--                            android:paddingVertical="8dp"-->
-<!--                            android:layout_marginEnd="8dp"-->
-<!--                            />-->
-
-<!--                        <com.google.android.material.tabs.TabItem-->
-<!--                            android:id="@+id/chipTrending"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/hotel_category_trending"-->
-<!--                            android:visibility="gone"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:background="@drawable/dot_inactive"-->
-<!--                            android:paddingHorizontal="12dp"-->
-<!--                            android:paddingVertical="8dp"-->
-<!--                            />-->
-
-
-
-                    </com.google.android.material.tabs.TabLayout>
-                  <!--  <TextView
-                        android:id="@+id/chipRecommended"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hotel_category_recommended"
-                        android:textColor="@color/black"
-                        android:background="@color/primary500"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="8dp"
-                        android:layout_marginEnd="8dp" />
-
-                    &lt;!&ndash; Chip 2 &ndash;&gt;
-                    <TextView
-                        android:id="@+id/chipPopular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hotel_category_popular"
-                        android:textColor="@color/black"
-                        android:background="@drawable/dot_inactive"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="8dp"
-                        android:layout_marginEnd="8dp" />
-
-                    &lt;!&ndash; Chip 3 &ndash;&gt;
-                    <TextView
-                        android:id="@+id/chipTrending"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hotel_category_trending"
-                        android:textColor="@color/black"
-                        android:background="@drawable/dot_inactive"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="8dp" />-->
 
                 </LinearLayout>
 
@@ -222,7 +150,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recent_recycler"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="8dp"
                             android:orientation="horizontal"
@@ -241,12 +169,13 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp" />
 
                 <!-- Recent Booked Hotel Cards -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="700dp"
                     android:orientation="vertical">
 
 
@@ -254,9 +183,9 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/near_places_recycler"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginTop="8dp"
-                            tools:listitem="@layout/recents_hotels_row_item"
+                            tools:listitem="@layout/near_hotels_row_item"
                           />
 
 

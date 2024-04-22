@@ -2,85 +2,276 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/hotel_image_place"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/booking_appbar"
         android:layout_width="match_parent"
-        android:layout_height="255dp"
-        android:cropToPadding="true"
-        android:src="@drawable/img_carousel_2"/>
-    <TextView
-        android:id="@+id/hotel_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hotel Name: "
-        android:layout_below="@+id/hotel_image_place"
-        android:padding="10dp"
-        android:paddingStart="5dp"
-        android:textSize="28sp" />
-    <TextView
-        android:id="@+id/textViewAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hotel Address: "
-        android:padding="5dp"
-        android:layout_below="@+id/hotel_name"
-        android:textSize="18sp" />
+        android:layout_height="50dp"
+        android:backgroundTint="@color/white">
 
-    <TextView
-        android:id="@+id/textViewContact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_below="@id/textViewAddress"
-        android:text="Contact Number: "
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editTextCheckInDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewContact"
-        android:hint="Check-In Date"
-        android:padding="5dp"
-        android:inputType="date" />
+            <TextView
+                android:id="@+id/bookings"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/destination_booking"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <EditText
-        android:id="@+id/editTextCheckOutDate"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextCheckInDate"
-        android:hint="Check-Out Date"
-        android:padding="5dp"
-        android:inputType="date" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/booking_appbar">
 
-    <EditText
-        android:id="@+id/editTextRooms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextCheckOutDate"
-        android:hint="Number of Rooms"
-        android:padding="5dp"
-        android:inputType="number" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextPersons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextRooms"
-        android:hint="Number of Persons"
-        android:padding="5dp"
-        android:inputType="number" />
+            <ImageView
+                android:id="@+id/hotel_image_place"
+                android:layout_width="match_parent"
+                android:layout_height="255dp"
+                android:cropToPadding="true"
+                android:src="@drawable/img_carousel_2" />
 
-    <Button
-        android:id="@+id/buttonBookNow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextPersons"
-        android:layout_marginTop="50dp"
-        android:padding="15dp"
-        android:text="Book Now" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="30dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/hotel_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Hotel Name:"
+                        android:padding="25dp"
+                        android:paddingStart="15dp"
+                        android:textSize="28sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textViewAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Hotel Address:"
+                        android:padding="15dp"
+                        android:paddingStart="15dp"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hotel_name" />
+
+                    <TextView
+                        android:id="@+id/textViewContact"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="Contact Number:"
+                        android:textSize="18sp"
+                        android:paddingStart="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewAddress"
+                        android:layout_marginTop="16dp" />
+
+                    <TextView
+                        android:id="@+id/textViewLocation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:paddingStart="15dp"
+                        android:text="Location"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewContact"
+                        android:layout_marginTop="16dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/booking_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="5dp"
+                android:padding="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="50dp"
+                android:visibility="visible">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progressLoading_circular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/checkInDateLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Check-In Date"
+                        android:layout_margin="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/checkOutDateLayout"
+                        app:layout_constraintTop_toBottomOf="@id/progressLoading_circular"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextCheckInDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:inputType="date" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/checkOutDateLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Check-Out Date"
+                        android:layout_margin="10dp"
+                        app:layout_constraintStart_toEndOf="@id/checkInDateLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/progressLoading_circular"
+                       >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextCheckOutDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:inputType="date" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Other views and constraints -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/roomTypeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Room Types"
+                        android:layout_margin="10dp"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/checkOutDateLayout"
+                        app:layout_constraintWidth_default="wrap">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextRoomType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/roomsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Number of Rooms"
+                        android:layout_margin="10dp"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/roomTypeLayout"
+                        app:layout_constraintWidth_default="wrap">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextRooms"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                           />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/personsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Number of Persons"
+                        android:layout_margin="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/roomsLayout"
+                        app:layout_constraintWidth_default="wrap">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextPersons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/payment_enter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pay Now"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="75dp"
+                        android:layout_marginEnd="75dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/personsLayout"
+                        android:padding="15dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <Button
+                android:id="@+id/buttonBookNow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Book Now"
+                android:layout_marginTop="16dp"
+                android:padding="15dp"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

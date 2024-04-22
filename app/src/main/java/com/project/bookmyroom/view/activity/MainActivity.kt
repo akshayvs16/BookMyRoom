@@ -11,14 +11,19 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.project.bookmyroom.R
 import com.project.bookmyroom.view.components.ExitDialog
+import com.project.bookmyroom.view.components.interfaces.LocationChangeListener
 import com.project.bookmyroom.view.fragments.HomeFragment
 import com.project.bookmyroom.view.fragments.MyBookingFragment
 import com.project.bookmyroom.view.fragments.ProfileFragment
 import com.project.bookmyroom.view.fragments.SearchFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , LocationChangeListener {
     private var doubleBackToExitPressedOnce = false
     private lateinit var exitDialog: ExitDialog
+companion object{
+    var defaultLocation: String = "Trivandrum" // Default location
+
+}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,5 +68,9 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onBackPressed() {
         exitDialog.showDoubleBackPressExitToast(this)
+    }
+
+    override fun onLocationChanged(newLocation: String) {
+        defaultLocation = newLocation
     }
 }

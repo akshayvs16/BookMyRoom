@@ -1,36 +1,71 @@
 package com.project.bookmyroom.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.project.bookmyroom.R
+import android.widget.TextView
+import com.project.bookmyroom.databinding.FragmentProfileBinding
+import com.project.bookmyroom.preference.PreferenceManager
+import com.project.bookmyroom.view.activity.LoginActivity
+import com.project.bookmyroom.view.components.ExitDialog
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-
+    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        preferenceManager = PreferenceManager(requireContext())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        displayUsername()
+        binding.logoutCard.setOnClickListener {
+            onLogoutClicked()
+        }
+    }
+
+    private fun displayUsername() {
+        val username = preferenceManager.getUsername()
+        if (!username.isNullOrEmpty()) {
+            binding.userName.text = username
+        } else {
+            // Handle case when username is not available
+        }
+    }
+
+    fun onLogoutClicked() {
+        showExitConfirmationDialog()
+
+    }
+    private fun showExitConfirmationDialog() {
+        val exitDialog = ExitDialog(requireContext())
+        exitDialog.showExitDialog {
+            // Handle logout action here, such as clearing user data, navigating to login screen, etc.
+            // For example:
+            preferenceManager.clearCredentials()
+            navigateToLoginScreen()
+        }
+        
+    }
+
+    private fun navigateToLoginScreen() {
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        requireActivity().finish()
+    }
 
 }

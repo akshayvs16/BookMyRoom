@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    app:cardCornerRadius="25dp"
+    app:cardBackgroundColor="@color/greyscale900"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:elevation="10dp"
+    android:layout_marginBottom="4dp">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
     android:id="@+id/place_image"
-    android:layout_width="180dp"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:padding="2dp"
-    android:background="@drawable/img_welcome">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/greyscale900"
+    >
 
     <ImageView
         android:id="@+id/place_image2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/img_welcome"
+        android:src="@drawable/img_carousel_3"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +33,7 @@
        />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_image2"
+        android:layout_height="match_parent"
        android:orientation="vertical"
         >
 
@@ -36,8 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="280dp"
         android:text="Lemon Tree Vembanad Lake Resort, Kerala"
+        android:textStyle="bold"
+        android:textSize="20dp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/place_image2" />
@@ -69,3 +79,5 @@
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.bookmyroom.R
+import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.adapters.RecentsAdapter
 import com.project.bookmyroom.view.components.adapters.TopPlacesAdapter
 import com.project.bookmyroom.viewmodel.RecentsData
@@ -42,6 +43,10 @@ class HomeFragment : Fragment() {
     private lateinit var popularData: List<RecentsData>
     private lateinit var trendingData: List<RecentsData>
 
+    private lateinit var currentLocation:TextView
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,55 +59,25 @@ class HomeFragment : Fragment() {
         // Initialize RecyclerView
         recentRecycler = view.findViewById(R.id.recent_recycler)
         nearPlaceRecycler = view.findViewById(R.id.near_places_recycler)
+        currentLocation = view.findViewById(R.id.currentLocation)
+
+        currentLocation.text = MainActivity.defaultLocation
+
+        loadDataBasedOnLocation(currentLocation.toString())
+
+
+
         setRecentRecycler(recommendedData) // Default: Recommended data
         setNearPlacesRecycler(getNearPlacesData()) // Default: Recommended data
 
         // Setup category chips click listeners
-        setupCategoryChips()
 
         return view
     }
 
-    private fun setupCategoryChips() {
-       /* val recommendedChip = view?.findViewById<TextView>(R.id.chipRecommended)
-        val popularChip = view?.findViewById<TextView>(R.id.chipPopular)
-        val trendingChip = view?.findViewById<TextView>(R.id.chipTrending)
 
-        recommendedChip?.setOnClickListener {
-
-            setRecentRecycler(getRecommendedData())
-        }
-
-        popularChip?.setOnClickListener {
-            setRecentRecycler_2(getPopularData())
-        }
-
-        trendingChip?.setOnClickListener {
-            setRecentRecycler_3(getTrendingData())
-        }*/
-    }
 
     private fun setRecentRecycler(dataList: List<RecentsData>) {
-        recentDataList.clear()
-        recentDataList.addAll(dataList)
-
-        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        recentRecycler.layoutManager = layoutManager
-        recentAdapter = RecentsAdapter(requireContext(), recentDataList)
-        recentRecycler.adapter = recentAdapter
-        recentRecycler.invalidate()
-    }
-    private fun setRecentRecycler_2(dataList: List<RecentsData>) {
-        recentDataList.clear()
-        recentDataList.addAll(dataList)
-
-        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        recentRecycler.layoutManager = layoutManager
-        recentAdapter = RecentsAdapter(requireContext(), recentDataList)
-        recentRecycler.adapter = recentAdapter
-        recentRecycler.invalidate()
-    }
-    private fun setRecentRecycler_3(dataList: List<RecentsData>) {
         recentDataList.clear()
         recentDataList.addAll(dataList)
 
@@ -172,4 +147,19 @@ class HomeFragment : Fragment() {
         return Gson().fromJson(jsonString, type) ?: emptyList()
 
     }
+
+    private fun loadDataBasedOnLocation(location: String) {
+        // Check the location and load data accordingly
+        when (location) {
+            "Trivandrum" -> {
+                // Load recommended data by default
+                setRecentRecycler(getRecommendedData())
+            }
+            else -> {
+                // Load popular data for other locations
+                setRecentRecycler(getPopularData())
+            }
+        }
+    }
+
 }

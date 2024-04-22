@@ -10,13 +10,12 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private const val BASE_URL = "123"
-    private const val TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoiamVubmlmZXJAbWFpbGluYXRvci5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjgzNTI4OTYxfQ.oduFehx-Xf97ZVRbUH8P7jsr_oI9BCUlwJeB7HsPSu7FmQ6wxknvpyVR3cculyh8MgGemaAVV5l6lD4ffX-YVg" // Replace with your actual token
+    private const val BASE_URL = "https://spectrum-freckle-scabiosa.glitch.me/api"
 
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer $TOKEN")
+//                .addHeader("Authorization",v )
                 .build()
             chain.proceed(request)
         }

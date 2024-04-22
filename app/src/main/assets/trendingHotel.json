@@ -4,7 +4,7 @@
     "countryName": "India",
     "price": "From 6000",
     "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/34223229.jpg?k=9826fa689c3fe157ca6b584a07c5456c6a241078e79250dd26db46f94ca77cfa&o=&hp=1",
-    "address": "Kovalam Beach Road, Kovalam, Thiruvananthapuram, Kerala",
+    "address": "Kovalam Beach Road, Kovalam, Trivandrum, Kerala",
     "contactNumber": "+91 471 305 1234"
   },
   {
@@ -44,7 +44,7 @@
     "countryName": "India",
     "price": "From 5500",
     "imageUrl": "",
-    "address": "Manorama Road, Thampanoor, Thiruvananthapuram, Kerala",
+    "address": "Manorama Road, Thampanoor, Trivandrum, Kerala",
     "contactNumber": "+91 471 718 4444"
   },
   {
@@ -52,7 +52,7 @@
     "countryName": "India",
     "price": "From 4000",
     "imageUrl": "",
-    "address": "TC 34/757, Watts Lane, Beach PO, Shangumugham, Thiruvananthapuram, Kerala",
+    "address": "TC 34/757, Watts Lane, Beach PO, Shangumugham, Trivandrum, Kerala",
     "contactNumber": "+91 471 245 9000"
   },
   {
@@ -64,11 +64,11 @@
     "contactNumber": "+91 471 660 0000"
   },
   {
-    "placeName": "Keys Select Hotel Thiruvananthapuram",
+    "placeName": "Keys Select Hotel Trivandrum",
     "countryName": "India",
     "price": "From 5000",
     "imageUrl": "",
-    "address": "TC 9/1049, Manorama Road, PMG Junction, Thiruvananthapuram, Kerala",
+    "address": "TC 9/1049, Manorama Road, PMG Junction, Trivandrum, Kerala",
     "contactNumber": "+91 471 394 4100"
   },
   {
