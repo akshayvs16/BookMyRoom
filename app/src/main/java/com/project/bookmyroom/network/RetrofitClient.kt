@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private const val BASE_URL = "https://spectrum-freckle-scabiosa.glitch.me/api"
+    private const val BASE_URL = "https://spectrum-freckle-scabiosa.glitch.me/api/"
 
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor { chain ->
@@ -19,9 +19,9 @@ object RetrofitClient {
                 .build()
             chain.proceed(request)
         }
-       /* .addInterceptor(HttpLoggingInterceptor().apply {
+        .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
-        })*/
+        })
         .connectTimeout(60, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
         .writeTimeout(60, TimeUnit.SECONDS)

@@ -166,11 +166,11 @@ class LoginFragment : Fragment() {
                 loginResult.success?.let {
                     updateUiWithUser(it)
                     if (rememberMeCheckbox.isChecked) {
-                       /* preferenceManager.saveCredentials(
+                        preferenceManager.saveCredentials(
                             usernameEditText.text.toString(),
                             passwordEditText.text.toString(),
 
-                            )*/
+                            )
                     } else {
                         // Clear saved credentials if "Remember Me" is not checked
                         preferenceManager.clearCredentials()

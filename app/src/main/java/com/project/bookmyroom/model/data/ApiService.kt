@@ -7,6 +7,10 @@ import retrofit2.Response
 
 interface ApiService {
 
+    @POST("user/register")
+    fun registerUser(@Body request: RegisterRequest): Call<RegisterResponse>
 
+    @POST("user/login")
+    fun loginUser(@Body request: LoginRequest): Call<LoginResponse>
 }
 

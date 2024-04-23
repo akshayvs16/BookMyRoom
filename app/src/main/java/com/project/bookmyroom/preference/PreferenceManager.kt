@@ -6,13 +6,13 @@ class PreferenceManager(context: Context) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-    fun saveCredentials(username: String, email: String, password: String) {
+    fun saveCredentials(username: String,  password: String) {
         val editor = sharedPreferences.edit()
         editor.putString(KEY_USERNAME, username)
-        editor.putString(KEY_EMAIL, email)
         editor.putString(KEY_PASSWORD, password)
         editor.apply()
     }
+
 
     fun getUsername(): String? {
         return sharedPreferences.getString(KEY_USERNAME, null)

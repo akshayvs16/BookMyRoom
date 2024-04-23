@@ -18,21 +18,31 @@ import androidx.lifecycle.ViewModelProvider
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.FragmentLoginBinding
 import com.project.bookmyroom.databinding.FragmentSignUpBinding
+import com.project.bookmyroom.model.data.ApiService
+import com.project.bookmyroom.model.data.RegisterRequest
+import com.project.bookmyroom.model.data.RegisterResponse
+import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.preference.PreferenceManager
 import com.project.bookmyroom.view.activity.MainActivity
+import com.project.bookmyroom.view.components.ProgressDialogHandler
 import com.project.bookmyroom.view.fragments.ui.login.LoggedInUserView
 import com.project.bookmyroom.view.fragments.ui.login.LoginViewModel
 import com.project.bookmyroom.view.fragments.ui.login.LoginViewModelFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpFragment : Fragment() {
 
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var usernameEditText: EditText
     private lateinit var emailEditText: EditText
+    private lateinit var phoneEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var signUpButton: Button
     private lateinit var rememberMeCheckbox: CheckBox
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var progressDialogHandler:ProgressDialogHandler
 
     private var _binding: FragmentSignUpBinding? = null
 
@@ -51,8 +61,10 @@ class SignUpFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         preferenceManager = PreferenceManager(requireContext())
+        progressDialogHandler  = ProgressDialogHandler(requireContext())
         usernameEditText = binding.username
         emailEditText = binding.userEmailInput
+        phoneEditText = binding.userPhoneInput
         passwordEditText = binding.password
         signUpButton = binding.signUp
         rememberMeCheckbox = binding.rememberMe
@@ -61,7 +73,10 @@ class SignUpFragment : Fragment() {
 
         if (rememberMeCheckbox.isChecked &&
             usernameEditText.text.isNotBlank() &&
+            emailEditText.text.isNotBlank() &&
+            phoneEditText.text.isNotBlank() &&
             passwordEditText.text.isNotBlank()
+
         ) {
             // Perform auto-login
             loginViewModel.login(
@@ -131,16 +146,80 @@ class SignUpFragment : Fragment() {
             }
             false
         }
-        signUpButton.setOnClickListener {
-            loginViewModel.signup(
-                usernameEditText.text.toString(),
-                passwordEditText.text.toString(),
-                emailEditText.text.toString()
-            )
-        }
+
+            signUpButton.setOnClickListener {
+                progressDialogHandler.showProgressDialog("Creating Account...")
+                val username = usernameEditText.text.toString().trim()
+                val email = emailEditText.text.toString().trim()
+                val password = passwordEditText.text.toString().trim()
+                val mobile = phoneEditText.text.toString().trim()
+
+                if (username.isNotEmpty() || email.isNotEmpty() ||mobile.isNotEmpty() || password.isNotEmpty()) {
+                    val signUpRequest = RegisterRequest(
+                        email = email,
+                        password = password,
+                        firstName = username,
+                        phone = mobile // Assuming you have added phone input
+                    )
+                    signUpApi(signUpRequest)// Call the API using the ViewModel
+
+                } else {
+                    progressDialogHandler.dismissProgressDialog()
+
+                    Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                }
+            }
+
     }
 
-    private fun observeModel() {
+    private fun signUpApi(registerRequest: RegisterRequest) {
+        val apiService = RetrofitClient.instance
+        val call = apiService.registerUser(registerRequest)
+
+        call.enqueue(object : Callback<RegisterResponse> {
+            override fun onResponse(
+                call: Call<RegisterResponse>,
+                response: Response<RegisterResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val registerResponse = response.body()
+                    if (registerResponse != null) {
+                        // Handle successful registration response
+                        val message = registerResponse.message
+                        val newUser = registerResponse.newUser
+                        if (newUser != null) {
+                            // Handle the user data as needed
+                            val id = newUser.id
+                            val email = newUser.email
+                            val firstName = newUser.firstName
+                            val password = newUser.password
+                            // Show success message
+
+                            loginViewModel.signup(firstName,password,email)
+                            showToast("Registration Successful: $message")
+                        } else {
+                            showToast("Registration Failed: User data missing ")
+                        }
+                    } else {
+                        showToast("Registration Failed: Response body is empty")
+                    }
+                } else {
+                    // Handle unsuccessful registration response
+                    val errorMessage = response.errorBody()?.string()
+                    showToast("Registration Failed: $errorMessage")
+                }
+            }
+
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                // Handle network or API call failure
+                showToast("Registration Failed: ${t.message}")
+            }
+        })
+    }
+
+
+
+        private fun observeModel() {
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
                 if (loginFormState == null) {
@@ -168,8 +247,7 @@ class SignUpFragment : Fragment() {
                     updateUiWithUser(it)
                     if (rememberMeCheckbox.isChecked) {
                         preferenceManager.saveCredentials(
-                            usernameEditText.text.toString(),
-                            emailEditText.text.toString(),
+                            it.displayName,
                             passwordEditText.text.toString(),
                         )
                     } else {
@@ -180,10 +258,7 @@ class SignUpFragment : Fragment() {
             })    }
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
-        // Finish the current activity
+        showToast(welcome)        // Finish the current activity
         requireActivity().finish()
 
         // Start MainActivity
@@ -194,4 +269,9 @@ class SignUpFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        progressDialogHandler.dismissProgressDialog()
+    }
+
 }

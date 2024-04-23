@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.project.bookmyroom.R
 import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.adapters.RecentsAdapter
 import com.project.bookmyroom.view.components.adapters.TopPlacesAdapter
+import com.project.bookmyroom.view.replaceFragment
 import com.project.bookmyroom.viewmodel.RecentsData
 import com.project.bookmyroom.viewmodel.TopPlacesData
 import java.io.IOException
@@ -44,6 +46,7 @@ class HomeFragment : Fragment() {
     private lateinit var trendingData: List<RecentsData>
 
     private lateinit var currentLocation:TextView
+    private lateinit var currentLocation_layout: LinearLayout
 
 
 
@@ -60,6 +63,7 @@ class HomeFragment : Fragment() {
         recentRecycler = view.findViewById(R.id.recent_recycler)
         nearPlaceRecycler = view.findViewById(R.id.near_places_recycler)
         currentLocation = view.findViewById(R.id.currentLocation)
+        currentLocation_layout = view.findViewById(R.id.currentLocation_layout)
 
         currentLocation.text = MainActivity.defaultLocation
 
@@ -70,6 +74,11 @@ class HomeFragment : Fragment() {
         setRecentRecycler(recommendedData) // Default: Recommended data
         setNearPlacesRecycler(getNearPlacesData()) // Default: Recommended data
 
+
+        
+      /*  currentLocation_layout.setOnClickListener {
+            (requireActivity() as MainActivity).replaceFragment(R.id.fragmentContainer, SearchFragment())
+        }*/
         // Setup category chips click listeners
 
         return view

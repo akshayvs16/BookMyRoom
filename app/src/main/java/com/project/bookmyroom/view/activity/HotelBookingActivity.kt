@@ -1,6 +1,7 @@
 package com.project.bookmyroom.view.activity
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -16,6 +17,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import com.project.bookmyroom.R.*
+import com.project.bookmyroom.model.data.BookingDetailsData
 import com.project.bookmyroom.viewmodel.RecentsData
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -31,6 +33,7 @@ class HotelBookingActivity : AppCompatActivity() {
     private lateinit var editTextCheckInDate: TextInputEditText
     private lateinit var editTextCheckOutDate: TextInputEditText
     private lateinit var editTextRooms: TextInputEditText
+    private lateinit var editTextRoomType: TextInputEditText
     private lateinit var editTextPersons: TextInputEditText
     private lateinit var buttonBookNow: Button
     private lateinit var payment_enter: Button
@@ -53,6 +56,7 @@ class HotelBookingActivity : AppCompatActivity() {
         editTextCheckInDate = findViewById(id.editTextCheckInDate)
         editTextCheckOutDate = findViewById(id.editTextCheckOutDate)
         editTextRooms = findViewById(id.editTextRooms)
+        editTextRoomType = findViewById(id.editTextRoomType)
         editTextPersons = findViewById(id.editTextPersons)
         buttonBookNow = findViewById(id.buttonBookNow)
         payment_enter = findViewById(id.payment_enter)
@@ -71,7 +75,27 @@ class HotelBookingActivity : AppCompatActivity() {
         }
         payment_enter.setOnClickListener {
 
-            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+            val checkInDate = editTextCheckInDate.text.toString()
+            val checkOutDate = editTextCheckOutDate.text.toString()
+            val roomsStr = editTextRooms.text.toString()
+            val personsStr = editTextPersons.text.toString()
+            val hotelName = hotel_name.text.toString()
+            val roomType = editTextRoomType.text.toString()
+
+            if (checkInDate.isNotEmpty() ||checkOutDate.isNotEmpty() ||roomsStr.isNotEmpty() ||personsStr.isNotEmpty() ||hotelName.isNotEmpty() || roomType.isNotEmpty()) {
+                val rooms = roomsStr.toInt()
+                val persons = personsStr.toInt()
+                val bookingDetails = BookingDetailsData(hotelName,roomType,checkInDate, checkOutDate, rooms, persons)
+
+                val intent = Intent(this, PaymentActivity::class.java)
+                intent.putExtra("BOOKING_DETAILS", bookingDetails)
+                startActivity(intent)
+            } else {
+                // Handle the case where rooms or persons input is empty
+                Toast.makeText(this, "Rooms and persons cannot be empty", Toast.LENGTH_SHORT).show()
+            }
+
+
         }
 
 

@@ -14,7 +14,7 @@
         <item name="colorSecondaryVariant">@color/greyscale400</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/primary500</item>
+        <item name="android:statusBarColor">@color/white</item>
         <item name="android:background">@color/white</item>
     </style>
 
