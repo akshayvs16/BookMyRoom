@@ -62,6 +62,7 @@ class SignUpFragment : Fragment() {
         }
         preferenceManager = PreferenceManager(requireContext())
         progressDialogHandler  = ProgressDialogHandler(requireContext())
+
         usernameEditText = binding.username
         emailEditText = binding.userEmailInput
         phoneEditText = binding.userPhoneInput
@@ -71,7 +72,7 @@ class SignUpFragment : Fragment() {
 
 
 
-        if (rememberMeCheckbox.isChecked &&
+      /*  if (rememberMeCheckbox.isChecked &&
             usernameEditText.text.isNotBlank() &&
             emailEditText.text.isNotBlank() &&
             phoneEditText.text.isNotBlank() &&
@@ -83,7 +84,7 @@ class SignUpFragment : Fragment() {
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
-        }
+        }*/
 
 
        /* signUpButton.setOnClickListener {
@@ -166,7 +167,7 @@ class SignUpFragment : Fragment() {
                 } else {
                     progressDialogHandler.dismissProgressDialog()
 
-                    Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                    showToast("Please fill in all fields")
                 }
             }
 

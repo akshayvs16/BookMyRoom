@@ -2,7 +2,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+  >
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/booking_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_left"
+                android:backgroundTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                />
+
+            <TextView
+                android:id="@+id/curremt_place"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Explore"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/btnBack"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/booking_appbar"  android:padding="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <ImageView
         android:id="@+id/place_image"
@@ -19,6 +66,7 @@
         android:layout_below="@+id/place_image"
         android:textSize="30sp"
         android:padding="10dp"
+        android:textStyle="bold"
         android:text="VARKALA"/>
     <TextView
         android:id="@+id/description_text"
@@ -27,14 +75,128 @@
         android:layout_below="@id/place_heading"
         android:padding="16dp"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:text="Description of the place goes here." />
+        android:textSize="15sp"
+        android:text="Kerala Kalamandalam has, for decades, been regarded as the most prestigious Kathakali school in the entire world. This legendary school of art is located in Cheruthuruthy and was originally set up by the famous poet of Malayalam, Vallathol Narayana Menon. The story goes that he recognised a subtle decrease in the interest people had in Kathakali and other traditional art forms and thus started the venture. Today, the Kalamandalam is the foremost proponent of a variety of traditional performing art forms that include Mohiniyattam, Kutiyattam, Thullal and Nangiarkoothu. It is also an official deemed University for Art and Culture.  Founded in 1930 along the banks of the Nila (Bharathapuzha) River in Thrissur District, its ambience has assisted and nurtured Kerala’s traditional art forms for nearly a century. Performances and classes are regularly held in Kalamandalam, fostered by its quaint charm. Eminent artists from across the state and beyond perform regularly at its famous dance theatre, Koothambalam. Interestingly, it is the only one of its kind to be built outside a Temple complex. The Koothambalam’s granite pillars are famous for having one hundred and eight karanas (dance-poses) inscribed on them. Watching recitals in these hallowed halls is an ethereal experience. A number of scholarships and awards, sponsored by patrons from across the world, are regularly awarded to aid the student’s journey as artists." />
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/greyscale50"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardElevation="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+       >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_bus_stop"
+            android:layout_gravity="start"
+            android:padding="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Nearest Bus stop"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="12sp"
+
+            />
+        <TextView
+            android:id="@+id/nearst_busStop"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Nearest Bus stop"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="12sp"
+
+            />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/greyscale50"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardElevation="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_railway_station"
+            android:layout_gravity="start"
+            android:padding="10dp"
+
+            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Nearest Railway"
+                android:padding="10dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                />
+        <TextView
+            android:id="@+id/nearst_railway"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Nearest Railway Station"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            />
+    </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Near By Rooms"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:padding="10dp"
+            />
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_circular_View"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            app:trackColor="@color/primary100"
+            app:indicatorColor="@color/primary500"
+            android:indeterminate="true"
+            app:showAnimationBehavior="outward"
+
+            />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hotels_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/description_text"
         android:padding="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>
 
 </RelativeLayout>

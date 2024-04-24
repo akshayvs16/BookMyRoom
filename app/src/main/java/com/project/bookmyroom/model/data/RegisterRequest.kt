@@ -10,3 +10,5 @@ data class LoginRequest(
     val email: String,
     val password: String
 )
+data class DistrictRequestforPlaces(val districtId: String)
+data class DistrictRequest(val id: String)

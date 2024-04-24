@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() , LocationChangeListener {
     private var doubleBackToExitPressedOnce = false
     private lateinit var exitDialog: ExitDialog
 companion object{
-    var defaultLocation: String = "Trivandrum" // Default location
+    var defaultLocation: String = "Thiruvananthapuram" // Default location
 
 }
 

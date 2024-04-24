@@ -147,7 +147,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress_circular_View_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:layout_gravity="center"
+                        app:trackColor="@color/primary100"
+                        app:indicatorColor="@color/primary500"
+                        android:indeterminate="true"
+                        app:showAnimationBehavior="outward"
 
+                        />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recent_recycler"
@@ -178,7 +189,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="700dp"
                     android:orientation="vertical">
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress_circular_View"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:layout_gravity="center"
+                        app:trackColor="@color/primary100"
+                        app:indicatorColor="@color/primary500"
+                        android:indeterminate="true"
+                        app:showAnimationBehavior="outward"
 
+                        />
 
 
                         <androidx.recyclerview.widget.RecyclerView

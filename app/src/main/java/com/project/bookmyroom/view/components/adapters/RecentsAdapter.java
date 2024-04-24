@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.project.bookmyroom.R;
+import com.project.bookmyroom.model.data.Hotel;
 import com.project.bookmyroom.view.activity.HotelBookingActivity;
-import com.project.bookmyroom.viewmodel.RecentsData;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,9 +22,9 @@ import java.util.List;
 public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsViewHolder> {
 
     Context context;
-    List<RecentsData> recentsDataList;
+    List<Hotel> recentsDataList;
 
-    public RecentsAdapter(Context context, List<RecentsData> recentsDataList) {
+    public RecentsAdapter(Context context, List<Hotel> recentsDataList) {
         this.context = context;
         this.recentsDataList = recentsDataList;
     }
@@ -38,15 +38,15 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
 
     @Override
     public void onBindViewHolder(@NonNull RecentsViewHolder holder, int position) {
-        RecentsData currentItem = recentsDataList.get(position);
+        Hotel currentItem = recentsDataList.get(position);
 
-        holder.countryName.setText(currentItem.getCountryName());
-        holder.placeName.setText(currentItem.getPlaceName());
+        holder.countryName.setText(currentItem.getAddress());
+        holder.placeName.setText(currentItem.getName());
         holder.price.setText(currentItem.getPrice());
 
         // Load image using Glide
         Glide.with(context)
-                .load(currentItem.getImageUrl()) // Assuming imageUrl is a valid URL string
+                .load(currentItem.getImage()) // Assuming imageUrl is a valid URL string
                /* .placeholder(R.drawable.placeholder_image) // Placeholder image while loading
                 .error(R.drawable.error_image) // Error image if loading fails*/
                 .into(holder.placeImage);
@@ -55,7 +55,7 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(context, HotelBookingActivity.class);
-                i.putExtra("PLACE_DATA", (Serializable) currentItem);
+                i.putExtra("PLACE_DATA", String.valueOf(currentItem));
                 context.startActivity(i);
             }
         });
@@ -65,7 +65,7 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
     public int getItemCount() {
         return recentsDataList.size();
     }
-    public void setData(List<RecentsData> newData) {
+    public void setData(List<Hotel> newData) {
         recentsDataList.clear();
         recentsDataList.addAll(newData);
         notifyDataSetChanged();

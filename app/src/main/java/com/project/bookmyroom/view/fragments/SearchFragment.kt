@@ -46,7 +46,7 @@ class SearchFragment : Fragment() {
         editTextSearch = view.findViewById(R.id.edit_text_search)
         buttonSearch = view.findViewById(R.id.button_search)
         currentLocation=view.findViewById(R.id.currentLocation)
-
+        loadDistricts()
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, allDistricts)
         editTextSearch.setAdapter(adapter)
         currentLocation.setText(MainActivity.defaultLocation)

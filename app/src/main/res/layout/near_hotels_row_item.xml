@@ -41,6 +41,7 @@
         android:layout_marginTop="8dp"
         android:text="AM Lake"
         android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/place_image"
         tools:layout_editor_absoluteY="16dp" />
 
@@ -50,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="India"
+
         app:layout_constraintStart_toStartOf="@+id/place_name"
         app:layout_constraintTop_toBottomOf="@+id/place_name" />
 
@@ -58,7 +60,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="From $200"
+        android:text="From $200ssssssssssssssssssssssssssssssss"
+        android:maxLines="1"
+        android:ellipsize="start"
+        android:padding="5dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/country_name"
         app:layout_constraintTop_toBottomOf="@+id/country_name" />
 

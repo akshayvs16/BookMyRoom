@@ -21,8 +21,17 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.FragmentLoginBinding
+import com.project.bookmyroom.model.data.LoginRequest
+import com.project.bookmyroom.model.data.LoginResponse
+import com.project.bookmyroom.model.data.RegisterRequest
+import com.project.bookmyroom.model.data.RegisterResponse
+import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.preference.PreferenceManager
 import com.project.bookmyroom.view.activity.MainActivity
+import com.project.bookmyroom.view.components.ProgressDialogHandler
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
@@ -32,19 +41,14 @@ class LoginFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var rememberMeCheckbox: CheckBox
     private lateinit var loadingProgressBar: ProgressBar
     private lateinit var loginButton: Button
     private lateinit var  passwordEditText: EditText
     private lateinit var  usernameEditText: EditText
+    private lateinit var progressDialogHandler: ProgressDialogHandler
 
-    companion object {
-        private const val KEY_USERNAME = "username"
-        private const val KEY_PASSWORD = "password"
-        private const val KEY_REMEMBER_ME = "remember_me"
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,8 +60,8 @@ class LoginFragment : Fragment() {
         btnBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-        sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
         preferenceManager = PreferenceManager(requireContext())
+        progressDialogHandler  = ProgressDialogHandler(requireContext())
 
         usernameEditText = binding.username
         passwordEditText = binding.password
@@ -72,7 +76,7 @@ class LoginFragment : Fragment() {
         passwordEditText.setText(sharedPreferences.getString(KEY_PASSWORD, ""))*/
 
 
-        if (rememberMeCheckbox.isChecked &&
+      /*  if (rememberMeCheckbox.isChecked &&
             usernameEditText.text.isNotBlank() &&
             passwordEditText.text.isNotBlank()
         ) {
@@ -81,7 +85,7 @@ class LoginFragment : Fragment() {
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
-        }
+        }*/
 
         return view
     }
@@ -133,14 +137,72 @@ class LoginFragment : Fragment() {
         }
 
         loginButton.setOnClickListener {
-            loadingProgressBar.visibility = View.VISIBLE
-            loginViewModel.login(
-                usernameEditText.text.toString(),
-                passwordEditText.text.toString()
-            )
+            progressDialogHandler.showProgressDialog("Entering to your Account...")
+           /* loginViewModel.login(
+                usernameEditText.text.toString().trim(),
+                passwordEditText.text.toString().trim()
+            )*/
+            val username = usernameEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
+
+            if (username.isNotEmpty()||  password.isNotEmpty()) {
+                val loginRequest = LoginRequest(
+                    username ,
+                    password
+
+                )
+              loginUser(loginRequest)
+            } else {
+                progressDialogHandler.dismissProgressDialog()
+
+               showToast("Please fill in all fields")
+            }
         }
     }
+    private fun loginUser(loginRequest: LoginRequest){
+        val apiService = RetrofitClient.instance
+        val call = apiService.loginUser(loginRequest)
 
+        call.enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
+            ){
+                if (response.isSuccessful) {
+                val loginResponse = response.body()
+                if (loginResponse != null) {
+                    // Handle successful registration response
+                    val message = loginResponse.message
+                    val currentUser = loginResponse.user
+                    if (currentUser != null) {
+                        // Handle the user data as needed
+                        val id = currentUser._id
+                        val email = currentUser.email
+                        val firstName = currentUser.firstName
+//                        val password = currentUser.password
+                        // Show success message
+
+                        loginViewModel.login(firstName,loginRequest.password)
+                        showToast("Login Successful: $message")
+                    } else {
+                        showToast("Login Failed: User data missing ")
+                    }
+                } else {
+                    showToast("Login Failed: Response body is empty")
+                }
+            } else {
+                // Handle unsuccessful registration response
+                val errorMessage = response.errorBody()?.string()
+                showToast("Login Failed: $errorMessage")
+            }
+        }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            // Handle network or API call failure
+            showToast("Login Failed: ${t.message}")
+        }
+    })
+    }
     private fun observeModel() {
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
@@ -182,8 +244,7 @@ class LoginFragment : Fragment() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
         // TODO : initiate successful logged in experience
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
+        showToast(welcome)        // Finish the current activity
         // Finish the current activity
         requireActivity().finish()
 
@@ -200,4 +261,9 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        progressDialogHandler.dismissProgressDialog()
+    }
+
 }

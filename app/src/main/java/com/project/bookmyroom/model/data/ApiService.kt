@@ -3,7 +3,6 @@ package com.project.bookmyroom.model.data
 
 import retrofit2.Call
 import retrofit2.http.*
-import retrofit2.Response
 
 interface ApiService {
 
@@ -12,5 +11,13 @@ interface ApiService {
 
     @POST("user/login")
     fun loginUser(@Body request: LoginRequest): Call<LoginResponse>
+
+    @POST("places/list")
+    fun getPlacesByDistrict(@Body request: DistrictRequestforPlaces): Call<PlacesResponse>
+
+    @POST("hotels/list")
+    fun getHotelsByDistrict(@Body request: DistrictRequest): Call<HotelResponse>
+    @POST("hotels/list")
+    fun getHotelsByPlaces(@Body request: DistrictRequest): Call<HotelResponse>
 }
 

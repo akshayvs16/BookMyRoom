@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -25,6 +26,7 @@ import java.util.Date
 import java.util.Locale
 
 class HotelBookingActivity : AppCompatActivity() {
+    private lateinit var btnBack: ImageButton
     private lateinit var hotelData: RecentsData
     private lateinit var hotelImage: ImageView
     private lateinit var hotel_name: TextView
@@ -48,6 +50,7 @@ class HotelBookingActivity : AppCompatActivity() {
 
         booking_layout=findViewById(id.booking_layout)
         hotelImage = findViewById(id.hotel_image_place)
+        btnBack = findViewById(id.btnBack)
         hotel_name = findViewById(id.hotel_name)
         textViewAddress = findViewById(id.textViewAddress)
         textViewContact = findViewById(id.textViewContact)
@@ -63,6 +66,10 @@ class HotelBookingActivity : AppCompatActivity() {
 
         // Set address and contact number
         populateData()
+
+        btnBack.setOnClickListener {
+            finish() // Finish the current activity and go back to the previous one
+        }
 
         buttonBookNow.setOnClickListener {
             // Handle the "Book Now" button click event
