@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.project.bookmyroom.databinding.FragmentProfileBinding
 import com.project.bookmyroom.preference.PreferenceManager
+import com.project.bookmyroom.view.CommonDataArea.Companion.userName
 import com.project.bookmyroom.view.activity.LoginActivity
 import com.project.bookmyroom.view.components.ExitDialog
 
@@ -38,12 +39,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun displayUsername() {
-        val username = preferenceManager.getUsername()
-        if (!username.isNullOrEmpty()) {
+        val username = preferenceManager.getUser()?.firstName
             binding.userName.text = username
-        } else {
-            // Handle case when username is not available
-        }
+
     }
 
     fun onLogoutClicked() {

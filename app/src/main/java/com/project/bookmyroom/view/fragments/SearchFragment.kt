@@ -15,6 +15,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.bookmyroom.R
@@ -50,6 +51,20 @@ class SearchFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, allDistricts)
         editTextSearch.setAdapter(adapter)
         currentLocation.setText(MainActivity.defaultLocation)
+
+
+        view.findViewById<MaterialCardView>(R.id.card_trivandrum)?.setOnClickListener {
+            updateLocation("Thiruvananthapuram")
+        }
+
+        // Set similar click listeners for Ernakulam and Kozhikode cards
+        view.findViewById<MaterialCardView>(R.id.card_ernakulam)?.setOnClickListener {
+            updateLocation("Ernakulam")
+        }
+
+        view.findViewById<MaterialCardView>(R.id.card_kozhikode)?.setOnClickListener {
+            updateLocation("Kozhikode")
+        }
         // Setup click listener for the Search button
         buttonSearch.setOnClickListener {
             performSearch(editTextSearch.text.toString())
@@ -68,7 +83,7 @@ class SearchFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadDistricts() // Load districts data when the view is created
+        //loadDistricts() // Load districts data when the view is created
     }
 
 
@@ -135,7 +150,7 @@ class SearchFragment : Fragment() {
         // Load districts data from your source and populate allDistricts list
         // For demonstration, assume allDistricts is already populated
         allDistricts.addAll(listOf(
-            "Trivandrum",
+            "Thiruvananthapuram",
             "Kollam",
             "Pathanamthitta",
             "Alappuzha",

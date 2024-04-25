@@ -19,5 +19,8 @@ interface ApiService {
     fun getHotelsByDistrict(@Body request: DistrictRequest): Call<HotelResponse>
     @POST("hotels/list")
     fun getHotelsByPlaces(@Body request: DistrictRequest): Call<HotelResponse>
+
+    @POST("rooms/register")
+    fun saveUserPayment(@Body request: PaymentRequest): Call<PaymentResponse>
 }
 

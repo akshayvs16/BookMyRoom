@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="room_types">
+        <item>AC</item>
+        <item>NON-AC</item>
+    </string-array>
+</resources>

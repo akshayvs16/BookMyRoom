@@ -1,5 +1,7 @@
 package com.project.bookmyroom.view.components.adapters;
 
+import static com.project.bookmyroom.model.data.PlacesResponseKt.getDistrictNameById;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -40,9 +42,10 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
     public void onBindViewHolder(@NonNull RecentsViewHolder holder, int position) {
         Hotel currentItem = recentsDataList.get(position);
 
-        holder.countryName.setText(currentItem.getAddress());
+
         holder.placeName.setText(currentItem.getName());
-        holder.price.setText(currentItem.getPrice());
+        holder.countryName.setText(getDistrictNameById(Integer.parseInt(currentItem.getDistrictId())));
+        holder.price.setText("From ₹ "+currentItem.getPrice());
 
         // Load image using Glide
         Glide.with(context)
@@ -55,7 +58,7 @@ public class RecentsAdapter extends RecyclerView.Adapter<RecentsAdapter.RecentsV
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(context, HotelBookingActivity.class);
-                i.putExtra("PLACE_DATA", String.valueOf(currentItem));
+                i.putExtra("PLACE_DATA", currentItem);
                 context.startActivity(i);
             }
         });

@@ -21,8 +21,14 @@ import com.project.bookmyroom.databinding.FragmentSignUpBinding
 import com.project.bookmyroom.model.data.ApiService
 import com.project.bookmyroom.model.data.RegisterRequest
 import com.project.bookmyroom.model.data.RegisterResponse
+import com.project.bookmyroom.model.data.User
 import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.preference.PreferenceManager
+import com.project.bookmyroom.view.CommonDataArea
+import com.project.bookmyroom.view.CommonDataArea.Companion.userEmail
+import com.project.bookmyroom.view.CommonDataArea.Companion.userId
+import com.project.bookmyroom.view.CommonDataArea.Companion.userName
+import com.project.bookmyroom.view.CommonDataArea.Companion.userPassword
 import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.ProgressDialogHandler
 import com.project.bookmyroom.view.fragments.ui.login.LoggedInUserView
@@ -189,15 +195,22 @@ class SignUpFragment : Fragment() {
                         val message = registerResponse.message
                         val newUser = registerResponse.newUser
                         if (newUser != null) {
-                            // Handle the user data as needed
-                            val id = newUser.id
-                            val email = newUser.email
-                            val firstName = newUser.firstName
-                            val password = newUser.password
-                            // Show success message
 
-                            loginViewModel.signup(firstName,password,email)
-                            showToast("Registration Successful: $message")
+                            // Show success message
+                            val user = User(
+                                newUser._id,
+                                newUser.email,
+                                newUser.password,
+                                newUser.firstName,
+                                newUser.phone,
+                                newUser.userId,
+                                newUser.createdAt,
+                                newUser.updatedAt,
+                                newUser.__v
+                            )
+                            preferenceManager.saveUser(user)
+                            loginViewModel.signup(user.firstName,user.password,user.email)
+                           // showToast("Registration Successful: $message")
                         } else {
                             showToast("Registration Failed: User data missing ")
                         }
@@ -248,7 +261,7 @@ class SignUpFragment : Fragment() {
                     updateUiWithUser(it)
                     if (rememberMeCheckbox.isChecked) {
                         preferenceManager.saveCredentials(
-                            it.displayName,
+                            preferenceManager.getUser()?.firstName!!,
                             passwordEditText.text.toString(),
                         )
                     } else {

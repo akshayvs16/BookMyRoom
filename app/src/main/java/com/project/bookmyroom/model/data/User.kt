@@ -19,6 +19,7 @@ data class newUser(
 data class User(
     val _id: String,
     val email: String,
+    val password: String,
     val firstName: String,
     val phone: String,
     val userId: String,

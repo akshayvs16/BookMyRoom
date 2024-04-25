@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.project.bookmyroom.R
 import com.project.bookmyroom.view.activity.LoginActivity
 import com.project.bookmyroom.view.fragments.SignUpFragment
-import com.project.bookmyroom.view.fragments.ui.login.LoginFragment
+import com.project.bookmyroom.view.fragments.LoginFragment
 import com.project.bookmyroom.view.replaceFragment
 
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.textview.MaterialTextView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.bookmyroom.R
@@ -55,11 +56,10 @@ class HomeFragment : Fragment() {
 
 
 
-    private lateinit var recommendedData: List<RecentsData>
-    private lateinit var popularData: List<RecentsData>
-    private lateinit var trendingData: List<RecentsData>
 
     private lateinit var currentLocation:TextView
+    private lateinit var hotelData_notFound:MaterialTextView
+    private lateinit var NearData_notFound:MaterialTextView
     private lateinit var currentLocation_layout: LinearLayout
 
 
@@ -71,12 +71,12 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
 
-        recommendedData = getRecommendedData()
-        popularData = getPopularData()
-        trendingData = getTrendingData()
 
         progress_circular=view.findViewById(R.id.progress_circular_View)
         progress_circular2=view.findViewById(R.id.progress_circular_View_1)
+
+        hotelData_notFound=view.findViewById(R.id.hotelData_notFound)
+        NearData_notFound=view.findViewById(R.id.NearData_notFound)
 
         progress_circular.visibility=View.GONE
         progress_circular2.visibility=View.GONE
@@ -89,17 +89,11 @@ class HomeFragment : Fragment() {
 
         currentLocation.text = MainActivity.defaultLocation
 
-       // loadDataBasedOnLocation(currentLocation.toString())
 
         val districtId = getDistrictId(currentLocation.text.toString())
 
         fetchPlacesByDistrict(districtId)
         fetchHotelsByDistrict(districtId)
-
-        //setRecentRecycler(trendingData) // Default: Recommended data
-        //setNearPlacesRecycler(getNearPlacesData()) // Default: Recommended data
-
-
         
         currentLocation_layout.setOnClickListener {
             (requireActivity() as MainActivity).replaceFragment(R.id.fragmentContainer, SearchFragment())
@@ -108,6 +102,42 @@ class HomeFragment : Fragment() {
 
         return view
     }
+
+
+    private fun setRecentRecycler(dataList: List<Hotel>) {
+        if (!isAdded || context == null) {
+            return
+        }
+        recentDataList.clear()
+        recentDataList.addAll(dataList)
+
+        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        recentRecycler.layoutManager = layoutManager
+        recentAdapter = RecentsAdapter(requireContext(), recentDataList)
+        recentRecycler.adapter = recentAdapter
+        recentRecycler.invalidate()
+        progress_circular2.visibility=View.GONE
+        hotelData_notFound.visibility=View.GONE
+
+    }
+
+    private fun setNearPlacesRecycler(dataList: List<NearPlacesData>) {
+        if (!isAdded || context == null) {
+            return
+        }
+        nearHotelsDataList.clear()
+        nearHotelsDataList.addAll(dataList)
+
+        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        nearPlaceRecycler.layoutManager = layoutManager
+        nearPlacesAdapter = NearPlacesAdapter(requireContext(), nearHotelsDataList)
+        nearPlaceRecycler.adapter = nearPlacesAdapter
+        nearPlaceRecycler.invalidate()
+        progress_circular.visibility=View.GONE
+        NearData_notFound.visibility=View.GONE
+
+    }
+
     private fun getDistrictId(districtName: String): String {
         val districts = listOf(
             Pair("Thiruvananthapuram", 0),
@@ -177,12 +207,6 @@ class HomeFragment : Fragment() {
         })
     }
 
-   /* override fun onStart() {
-        super.onStart()
-        fetchPlacesByDistrict(districtId = getDistrictId(currentLocation.text.toString()))
-        fetchHotelsByDistrict(districtId = getDistrictId(currentLocation.text.toString()))
-
-    }*/
 
     private fun parseApiResponse(response: PlacesResponse): List<NearPlacesData> {
         val dataList = mutableListOf<NearPlacesData>()
@@ -228,99 +252,4 @@ class HomeFragment : Fragment() {
         }
         return dataList
     }
-    private fun setRecentRecycler(dataList: List<Hotel>) {
-        if (!isAdded || context == null) {
-            return
-        }
-        recentDataList.clear()
-        recentDataList.addAll(dataList)
-
-        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        recentRecycler.layoutManager = layoutManager
-        recentAdapter = RecentsAdapter(requireContext(), recentDataList)
-        recentRecycler.adapter = recentAdapter
-        recentRecycler.invalidate()
-        progress_circular2.visibility=View.GONE
-
-    }
-
-    private fun setNearPlacesRecycler(dataList: List<NearPlacesData>) {
-        if (!isAdded || context == null) {
-            return
-        }
-        nearHotelsDataList.clear()
-        nearHotelsDataList.addAll(dataList)
-
-        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        nearPlaceRecycler.layoutManager = layoutManager
-        nearPlacesAdapter = NearPlacesAdapter(requireContext(), nearHotelsDataList)
-        nearPlaceRecycler.adapter = nearPlacesAdapter
-        nearPlaceRecycler.invalidate()
-        progress_circular.visibility=View.GONE
-
-    }
-
-    private fun getRecommendedData(): List<RecentsData> {
-        // Load and parse recommended_hotels.json from assets folder
-        return loadJsonData("hotel.json")
-    }
-
-    private fun getPopularData(): List<RecentsData> {
-        // Load and parse popular_hotels.json from assets folder
-        return loadJsonData("popularHotel.json")
-    }
-
-    private fun getTrendingData(): List<RecentsData> {
-        // Load and parse trending_hotels.json from assets folder
-        return loadJsonData("trendingHotel.json")
-    }
-
-    private fun getNearPlacesData(): List<TopPlacesData> {
-        // Load and parse trending_hotels.json from assets folder
-        return loadNearByPlacesData("nearByPlaces.json")
-    }
-
-    private fun loadJsonData(fileName: String): List<RecentsData> {
-        val jsonString = try {
-            val inputStream = requireContext().assets.open(fileName)
-            inputStream.bufferedReader().use { it.readText() }
-        } catch (e: IOException) {
-            Log.e("HomeFragment", "Error reading JSON file: ${e.message}")
-            e.printStackTrace()
-            ""
-        }
-
-        val type = object : TypeToken<List<RecentsData>>() {}.type
-        return Gson().fromJson(jsonString, type) ?: emptyList()
-    }
-
-    private fun loadNearByPlacesData(fileName: String): List<TopPlacesData> {
-        val jsonString = try {
-            val inputStream = requireContext().assets.open(fileName)
-            inputStream.bufferedReader().use { it.readText() }
-        } catch (e: IOException) {
-            Log.e("HomeFragment", "Error reading JSON file: ${e.message}")
-            e.printStackTrace()
-            ""
-        }
-
-        val type = object : TypeToken<List<TopPlacesData>>() {}.type
-        return Gson().fromJson(jsonString, type) ?: emptyList()
-
-    }
-/*
-    private fun loadDataBasedOnLocation(location: String) {
-        // Check the location and load data accordingly
-        when (location) {
-            "Trivandrum" -> {
-                // Load recommended data by default
-                setRecentRecycler(getRecommendedData())
-            }
-            else -> {
-                // Load popular data for other locations
-                setRecentRecycler(getPopularData())
-            }
-        }
-    }*/
-
 }

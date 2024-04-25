@@ -9,9 +9,8 @@ import androidx.databinding.DataBindingUtil
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.ActivityLoginBinding
 import com.project.bookmyroom.view.fragments.SignUpFragment
-import com.project.bookmyroom.view.fragments.ui.login.LoginFragment
+import com.project.bookmyroom.view.fragments.LoginFragment
 import com.project.bookmyroom.view.replaceFragment
-import com.project.bookmyroom.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
     private lateinit var binding: ActivityLoginBinding

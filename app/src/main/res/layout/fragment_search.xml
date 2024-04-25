@@ -46,14 +46,29 @@
         app:layout_constraintTop_toBottomOf="@id/fragment_booking_appbar"
 
     >
-        <TextView
-            android:id="@+id/currentLocation"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/primary100"/>
+        <TextView
+            android:id="@+id/currentLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Trivandrum"
+            android:fontFamily="@font/urbanist_regular"
             android:gravity="center"
 
             android:padding="10dp"/>
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +89,111 @@
             android:id="@+id/button_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Location" />
+            android:text="Set Location"
+            android:fontFamily="@font/urbanist_medium"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_trivandrum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="5dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="2dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location"
+                    android:scaleType="fitCenter"
+                    android:backgroundTint="@color/primary500"
+                    android:adjustViewBounds="true"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Trivandrum"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:gravity="center_horizontal"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_ernakulam"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:padding="5dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_location"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ernakulam"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_kozhikode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:padding="5dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_location"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kozhikode"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
     <!--<ListView
@@ -89,6 +208,7 @@
         android:id="@+id/recycler_view_popular_hotels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:padding="16dp" />
 </LinearLayout>
 </FrameLayout>

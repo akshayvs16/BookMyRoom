@@ -24,8 +24,8 @@
 
     <ImageView
         android:id="@+id/place_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,9 +38,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="AM Lake"
+        android:layout_marginTop="25dp"
+        android:text="AM Lakebhhhhh"
         android:textStyle="bold"
+        android:fontFamily="@font/urbanist_semibold"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:maxLines="1"
+        android:elegantTextHeight="true"
+        android:maxWidth="180dp"
+        android:ellipsize="end"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/place_image"
         tools:layout_editor_absoluteY="16dp" />
@@ -51,7 +59,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="India"
-
+        android:fontFamily="@font/urbanist_semibold"
+        android:padding="5dp"
+        android:maxLines="1"
+        android:elegantTextHeight="true"
+        android:maxWidth="180dp"
+        android:ellipsize="end"
         app:layout_constraintStart_toStartOf="@+id/place_name"
         app:layout_constraintTop_toBottomOf="@+id/place_name" />
 
@@ -62,8 +75,11 @@
         android:layout_marginTop="2dp"
         android:text="From $200ssssssssssssssssssssssssssssssss"
         android:maxLines="1"
-        android:ellipsize="start"
+        android:ellipsize="end"
         android:padding="5dp"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/urbanist_semibold"
+        android:maxWidth="150dp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/country_name"
         app:layout_constraintTop_toBottomOf="@+id/country_name" />

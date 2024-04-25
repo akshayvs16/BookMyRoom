@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isGone
 import com.bumptech.glide.Glide
@@ -19,6 +20,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import com.project.bookmyroom.R.*
 import com.project.bookmyroom.model.data.BookingDetailsData
+import com.project.bookmyroom.model.data.Hotel
 import com.project.bookmyroom.viewmodel.RecentsData
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -27,7 +29,7 @@ import java.util.Locale
 
 class HotelBookingActivity : AppCompatActivity() {
     private lateinit var btnBack: ImageButton
-    private lateinit var hotelData: RecentsData
+    private lateinit var hotelData: Hotel
     private lateinit var hotelImage: ImageView
     private lateinit var hotel_name: TextView
     private lateinit var textViewAddress: TextView
@@ -35,7 +37,7 @@ class HotelBookingActivity : AppCompatActivity() {
     private lateinit var editTextCheckInDate: TextInputEditText
     private lateinit var editTextCheckOutDate: TextInputEditText
     private lateinit var editTextRooms: TextInputEditText
-    private lateinit var editTextRoomType: TextInputEditText
+    private lateinit var editTextRoomType: AppCompatSpinner
     private lateinit var editTextPersons: TextInputEditText
     private lateinit var buttonBookNow: Button
     private lateinit var payment_enter: Button
@@ -46,7 +48,7 @@ class HotelBookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_hotel_booking)
 
-        hotelData = intent.getSerializableExtra("PLACE_DATA") as RecentsData
+        hotelData = intent.getSerializableExtra("PLACE_DATA") as Hotel
 
         booking_layout=findViewById(id.booking_layout)
         hotelImage = findViewById(id.hotel_image_place)
@@ -87,21 +89,18 @@ class HotelBookingActivity : AppCompatActivity() {
             val roomsStr = editTextRooms.text.toString()
             val personsStr = editTextPersons.text.toString()
             val hotelName = hotel_name.text.toString()
-            val roomType = editTextRoomType.text.toString()
+            val roomType = editTextRoomType.selectedItem.toString()
+            val hotelId = hotelData.id
 
-            if (checkInDate.isNotEmpty() ||checkOutDate.isNotEmpty() ||roomsStr.isNotEmpty() ||personsStr.isNotEmpty() ||hotelName.isNotEmpty() || roomType.isNotEmpty()) {
+            if (validateFields(checkInDate, checkOutDate, roomsStr, personsStr, hotelName, roomType)) {
                 val rooms = roomsStr.toInt()
                 val persons = personsStr.toInt()
-                val bookingDetails = BookingDetailsData(hotelName,roomType,checkInDate, checkOutDate, rooms, persons)
+                val bookingDetails = BookingDetailsData(hotelId,hotelName,roomType,checkInDate, checkOutDate, rooms, persons)
 
                 val intent = Intent(this, PaymentActivity::class.java)
                 intent.putExtra("BOOKING_DETAILS", bookingDetails)
                 startActivity(intent)
-            } else {
-                // Handle the case where rooms or persons input is empty
-                Toast.makeText(this, "Rooms and persons cannot be empty", Toast.LENGTH_SHORT).show()
             }
-
 
         }
 
@@ -122,6 +121,24 @@ class HotelBookingActivity : AppCompatActivity() {
             // For example:
             // bookHotel(checkInDate, checkOutDate, rooms, persons)
 
+    }
+
+
+    private fun validateFields(
+        checkInDate: String,
+        checkOutDate: String,
+        roomsStr: String,
+        personsStr: String,
+        hotelName: String,
+        roomType: String
+    ): Boolean {
+        if (checkInDate.isEmpty() || checkOutDate.isEmpty() || roomsStr.isEmpty() || personsStr.isEmpty() || hotelName.isEmpty() || roomType.isEmpty()) {
+            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        // Additional validation checks if needed
+        // For example, check if the Check-In Date is before the Check-Out Date
+        return true
     }
 
     private fun showDatePickerDialog(editText: EditText) {
@@ -152,12 +169,12 @@ class HotelBookingActivity : AppCompatActivity() {
         // Example: placeImage.setImageResource(R.drawable.place_image)
 
         // Set description
-        hotel_name.text= hotelData?.placeName
+        hotel_name.text = hotelData.name
         Glide.with(this)
-            .load(hotelData?.imageUrl)
+            .load(hotelData.image)
             .into(hotelImage)
-        textViewAddress.text=hotelData?.address
-        textViewContact.text=hotelData?.contactNumber
+        textViewAddress.text = hotelData.address
+        textViewContact.text = hotelData.contactNumber
         // Load and set hotels data
         // Example: hotelsList.addAll(getHotelsNearby())
         // hotelsAdapter.notifyDataSetChanged()

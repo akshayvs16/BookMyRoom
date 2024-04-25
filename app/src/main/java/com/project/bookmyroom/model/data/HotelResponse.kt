@@ -1,5 +1,7 @@
 package com.project.bookmyroom.model.data
 
+import java.io.Serializable
+
 
 data class Hotel(
     val _id: String,
@@ -12,10 +14,7 @@ data class Hotel(
     val placeId: String,
     val image: String,
     val id: String
-  /*  val createdAt: String,
-    val updatedAt: String,
-    val __v: Int*/
-)
+) : Serializable
 
 data class HotelResponse(
     val message: String,

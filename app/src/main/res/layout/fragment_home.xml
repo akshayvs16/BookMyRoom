@@ -141,23 +141,33 @@
 
 
                 </LinearLayout>
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progress_circular_View_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    app:trackColor="@color/primary100"
+                    app:indicatorColor="@color/primary500"
+                    android:indeterminate="true"
+                    app:showAnimationBehavior="outward"
 
+                    />
                 <!-- Hotel List -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <com.google.android.material.progressindicator.CircularProgressIndicator
-                        android:id="@+id/progress_circular_View_1"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/hotelData_notFound"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="25dp"
+                        android:text="No Data Found"
+                        android:gravity="center"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:textColor="@color/greyscale500"
                         android:visibility="visible"
-                        android:layout_gravity="center"
-                        app:trackColor="@color/primary100"
-                        app:indicatorColor="@color/primary500"
-                        android:indeterminate="true"
-                        app:showAnimationBehavior="outward"
-
                         />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -201,7 +211,17 @@
                         app:showAnimationBehavior="outward"
 
                         />
-
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/NearData_notFound"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="25dp"
+                        android:text="No Data Found"
+                        android:gravity="center"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:textColor="@color/greyscale500"
+                        android:visibility="visible"
+                        />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/near_places_recycler"

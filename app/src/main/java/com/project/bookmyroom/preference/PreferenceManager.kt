@@ -1,6 +1,7 @@
 package com.project.bookmyroom.preference
 import android.content.Context
 import android.content.SharedPreferences
+import com.project.bookmyroom.model.data.User
 
 class PreferenceManager(context: Context) {
     private val sharedPreferences: SharedPreferences =
@@ -10,6 +11,7 @@ class PreferenceManager(context: Context) {
         val editor = sharedPreferences.edit()
         editor.putString(KEY_USERNAME, username)
         editor.putString(KEY_PASSWORD, password)
+
         editor.apply()
     }
 
@@ -39,11 +41,52 @@ class PreferenceManager(context: Context) {
         private const val KEY_USERNAME = "username"
         private const val KEY_EMAIL = "email"
         private const val KEY_PASSWORD = "password"
+
+        private const val KEY_ID = "id"
+        private const val KEY_PHONE = "phone"
+        private const val KEY_USER_ID = "user_id"
+        private const val KEY_CREATED_AT = "created_at"
+        private const val KEY_UPDATED_AT = "updated_at"
+        private const val KEY_V = "__v"
     }
 
     fun areCredentialsSaved(): Boolean {
         return sharedPreferences.contains(KEY_USERNAME) && sharedPreferences.contains(KEY_PASSWORD)
     }
 
+
+    fun saveUser(user: User) {
+        val editor = sharedPreferences.edit()
+        editor.putString(KEY_ID, user._id)
+        editor.putString(KEY_EMAIL, user.email)
+        editor.putString(KEY_PASSWORD, user.password)
+        editor.putString(KEY_USERNAME, user.firstName)
+        editor.putString(KEY_PHONE, user.phone)
+        editor.putString(KEY_USER_ID, user.userId)
+        editor.putString(KEY_CREATED_AT, user.createdAt)
+        editor.putString(KEY_UPDATED_AT, user.updatedAt)
+        editor.putInt(KEY_V, user.__v)
+        editor.apply()
+    }
+
+    fun getUser(): User? {
+        val id = sharedPreferences.getString(KEY_ID, null)
+        val email = sharedPreferences.getString(KEY_EMAIL, null)
+        val password = sharedPreferences.getString(KEY_PASSWORD, null)
+        val firstName = sharedPreferences.getString(KEY_USERNAME, null)
+        val phone = sharedPreferences.getString(KEY_PHONE, null)
+        val userId = sharedPreferences.getString(KEY_USER_ID, null)
+        val createdAt = sharedPreferences.getString(KEY_CREATED_AT, null)
+        val updatedAt = sharedPreferences.getString(KEY_UPDATED_AT, null)
+        val v = sharedPreferences.getInt(KEY_V, 0)
+
+        return if (id != null && email != null && password != null && firstName != null &&
+            phone != null && userId != null && createdAt != null && updatedAt != null
+        ) {
+            User(id, email, password, firstName, phone, userId, createdAt, updatedAt, v)
+        } else {
+            null
+        }
+    }
 
 }

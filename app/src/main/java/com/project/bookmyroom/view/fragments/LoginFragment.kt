@@ -1,8 +1,6 @@
-package com.project.bookmyroom.view.fragments.ui.login
+package com.project.bookmyroom.view.fragments
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.annotation.StringRes
@@ -23,12 +21,17 @@ import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.FragmentLoginBinding
 import com.project.bookmyroom.model.data.LoginRequest
 import com.project.bookmyroom.model.data.LoginResponse
-import com.project.bookmyroom.model.data.RegisterRequest
-import com.project.bookmyroom.model.data.RegisterResponse
+import com.project.bookmyroom.model.data.User
 import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.preference.PreferenceManager
+import com.project.bookmyroom.view.CommonDataArea.Companion.userEmail
+import com.project.bookmyroom.view.CommonDataArea.Companion.userId
+import com.project.bookmyroom.view.CommonDataArea.Companion.userName
 import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.ProgressDialogHandler
+import com.project.bookmyroom.view.fragments.ui.login.LoggedInUserView
+import com.project.bookmyroom.view.fragments.ui.login.LoginViewModel
+import com.project.bookmyroom.view.fragments.ui.login.LoginViewModelFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -173,17 +176,25 @@ class LoginFragment : Fragment() {
                 if (loginResponse != null) {
                     // Handle successful registration response
                     val message = loginResponse.message
-                    val currentUser = loginResponse.user
-                    if (currentUser != null) {
+                    val newUser = loginResponse.user
+                    if (newUser != null) {
                         // Handle the user data as needed
-                        val id = currentUser._id
-                        val email = currentUser.email
-                        val firstName = currentUser.firstName
-//                        val password = currentUser.password
-                        // Show success message
 
-                        loginViewModel.login(firstName,loginRequest.password)
-                        showToast("Login Successful: $message")
+                        val user = User(
+                            newUser._id,
+                            newUser.email,
+                            loginRequest.password,
+                            newUser.firstName,
+                            newUser.phone,
+                            newUser.userId,
+                            newUser.createdAt,
+                            newUser.updatedAt,
+                            newUser.__v
+                        )
+                        preferenceManager.saveUser(user)
+
+                        loginViewModel.login(user.firstName,user.password)
+                        //showToast("Login Successful: $message")
                     } else {
                         showToast("Login Failed: User data missing ")
                     }
@@ -229,7 +240,7 @@ class LoginFragment : Fragment() {
                     updateUiWithUser(it)
                     if (rememberMeCheckbox.isChecked) {
                         preferenceManager.saveCredentials(
-                            usernameEditText.text.toString(),
+                           preferenceManager.getUser()?.firstName!!,
                             passwordEditText.text.toString(),
 
                             )
@@ -242,7 +253,7 @@ class LoginFragment : Fragment() {
 
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome) + model.displayName
+        val welcome = getString(R.string.welcome_back) + model.displayName
         // TODO : initiate successful logged in experience
         showToast(welcome)        // Finish the current activity
         // Finish the current activity

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragments.ui.login.LoginFragment">
+    tools:context=".view.fragments.LoginFragment">
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -26,7 +26,7 @@
         android:paddingRight="@dimen/fragment_horizontal_margin"
         android:paddingBottom="@dimen/fragment_vertical_margin"
         android:layout_marginTop="40dp"
-        tools:context=".view.fragments.ui.login.LoginFragment">
+        tools:context=".view.fragments.LoginFragment">
 
         <TextView
             android:id="@+id/sign_in_screen_heading"
