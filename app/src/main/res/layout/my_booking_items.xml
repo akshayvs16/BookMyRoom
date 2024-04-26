@@ -14,13 +14,13 @@
         android:layout_marginVertical="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:elevation="50dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#DADADA"
+        app:strokeColor="#C1B7B7"
         app:strokeWidth="1dp"
+        app:cardElevation="10dp"
         card_view:cardCornerRadius="4dp"
         card_view:cardUseCompatPadding="true">
 
@@ -36,6 +36,8 @@
                 android:layout_marginTop="20dp"
                 android:text="Hotel Name"
                 android:textStyle="bold"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_hotel"
+                android:src="@drawable/ic_bedroom"
                 app:layout_constraintStart_toStartOf="@id/fragment_booking_time_tv"
                 app:layout_constraintTop_toBottomOf="@id/fragment_booking_time_tv" />
 
@@ -55,6 +57,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Date 12/12/23"
                 android:textSize="12dp"
+                android:fontFamily="@font/urbanist_semibold"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/fragment_booking_hotel_iv"
                 app:layout_constraintStart_toEndOf="@id/fragment_booking_hotel_iv"
@@ -65,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_location"
+                android:src="@drawable/ic_hotel"
                 app:layout_constraintStart_toStartOf="@id/fragment_booking_hotel_iv"
                 app:layout_constraintTop_toBottomOf="@id/fragment_booking_hotel_iv" />
 
@@ -76,6 +79,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Trivandrum"
                 android:textSize="12dp"
+                android:fontFamily="@font/urbanist_semibold"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/fragment_booking_location_iv"
                 app:layout_constraintStart_toEndOf="@id/fragment_booking_location_iv"
@@ -88,7 +92,7 @@
                 android:layout_marginEnd="30dp"
                 android:text="1200"
                 android:textColor="#616161"
-                android:textSize="25dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/fragment_booking_hotel_iv" />

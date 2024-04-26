@@ -1,9 +1,6 @@
 package com.project.bookmyroom.model.data
 
 
-import com.project.bookmyroom.viewmodel.BookedRoomsResponse
-import com.project.bookmyroom.viewmodel.BookingItem
-import com.project.bookmyroom.viewmodel.MyBookingUserRequest
 import retrofit2.Call
 import retrofit2.http.*
 

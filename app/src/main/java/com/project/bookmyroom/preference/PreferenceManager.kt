@@ -35,6 +35,19 @@ class PreferenceManager(context: Context) {
         editor.remove(KEY_PASSWORD)
         editor.apply()
     }
+    fun clearUser() {
+        val editor = sharedPreferences.edit()
+        editor.remove(KEY_ID)
+        editor.remove(KEY_EMAIL)
+        editor.remove(KEY_PASSWORD)
+        editor.remove(KEY_USERNAME)
+        editor.remove(KEY_PHONE)
+        editor.remove(KEY_USER_ID)
+        editor.remove(KEY_CREATED_AT)
+        editor.remove(KEY_UPDATED_AT)
+        editor.remove(KEY_V)
+        editor.apply()
+    }
 
     companion object {
         private const val PREF_NAME = "MyPrefs"

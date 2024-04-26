@@ -10,5 +10,6 @@ data class BookingDetailsData (
     val checkOutDate: String,
     val rooms: Int,
     val persons: Int,
-    val price: Int
+    val price: Int,
+    val totalDays:Int
     ) : Serializable

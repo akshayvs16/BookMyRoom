@@ -24,10 +24,7 @@ import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.adapters.NearPlacesAdapter
 import com.project.bookmyroom.view.components.adapters.RecentsAdapter
-import com.project.bookmyroom.view.replaceFragment
 import com.project.bookmyroom.viewmodel.NearPlacesData
-import com.project.bookmyroom.viewmodel.RecentsData
-import com.project.bookmyroom.viewmodel.TopPlacesData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -96,7 +93,7 @@ class HomeFragment : Fragment() {
         fetchHotelsByDistrict(districtId)
         
         currentLocation_layout.setOnClickListener {
-            (requireActivity() as MainActivity).replaceFragment(R.id.fragmentContainer, SearchFragment())
+          //  (requireActivity() as MainActivity).replaceFragment(R.id.fragmentContainer, SearchFragment())
         }
         // Setup category chips click listeners
 
@@ -117,7 +114,6 @@ class HomeFragment : Fragment() {
         recentRecycler.adapter = recentAdapter
         recentRecycler.invalidate()
         progress_circular2.visibility=View.GONE
-        hotelData_notFound.visibility=View.GONE
 
     }
 
@@ -134,7 +130,6 @@ class HomeFragment : Fragment() {
         nearPlaceRecycler.adapter = nearPlacesAdapter
         nearPlaceRecycler.invalidate()
         progress_circular.visibility=View.GONE
-        NearData_notFound.visibility=View.GONE
 
     }
 
@@ -211,20 +206,27 @@ class HomeFragment : Fragment() {
     private fun parseApiResponse(response: PlacesResponse): List<NearPlacesData> {
         val dataList = mutableListOf<NearPlacesData>()
         val apiData = response.data
-        for (item in apiData) {
-            val nearPlace = NearPlacesData(
-                item.name,
-                item.address,
-                item.description,
-                item.districtId,
-                item.nearByBusStops,
-                item.nearByRailStops,
-                item.lat,
-                item.image,
-                item.id
+        if (apiData.isEmpty()){
+            NearData_notFound.visibility=View.VISIBLE
 
-            )
-            dataList.add(nearPlace)
+        }else {
+            NearData_notFound.visibility = View.GONE
+
+            for (item in apiData) {
+                val nearPlace = NearPlacesData(
+                    item.name,
+                    item.address,
+                    item.description,
+                    item.districtId,
+                    item.nearByBusStops,
+                    item.nearByRailStops,
+                    item.lat,
+                    item.image,
+                    item.id
+
+                )
+                dataList.add(nearPlace)
+            }
         }
         return dataList
     }
@@ -232,6 +234,12 @@ class HomeFragment : Fragment() {
     private fun parseHotelApiResponse(response: HotelResponse): List<Hotel> {
         val dataList = mutableListOf<Hotel>()
         val apiData = response.data
+        if (apiData.isEmpty()){
+
+            hotelData_notFound.visibility=View.VISIBLE
+        }else{
+            hotelData_notFound.visibility=View.GONE
+
         for (item in apiData) {
             val nearPlace = Hotel(
                 item._id,
@@ -248,7 +256,7 @@ class HomeFragment : Fragment() {
             )
             dataList.add(nearPlace)
             Log.d("HOME", "parseHotelApiResponse: ${nearPlace.id}")
-
+        }
         }
         return dataList
     }

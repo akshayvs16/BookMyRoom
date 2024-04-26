@@ -1,4 +1,4 @@
-package com.project.bookmyroom.viewmodel
+package com.project.bookmyroom.model.data
 
 data class BookingItem(
     val _id: String,

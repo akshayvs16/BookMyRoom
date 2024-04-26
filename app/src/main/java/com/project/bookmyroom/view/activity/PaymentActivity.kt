@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -33,6 +34,7 @@ import com.project.bookmyroom.view.CommonDataArea.Companion.userPhone
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Calendar
 
 class PaymentActivity : AppCompatActivity() {
     private lateinit var bookingDetails: BookingDetailsData
@@ -57,11 +59,14 @@ class PaymentActivity : AppCompatActivity() {
         with(binding) {
              bookingDetails = intent.getSerializableExtra("BOOKING_DETAILS") as BookingDetailsData
 
-            // Populate user information
-            textViewUserName.text = "Name: ${user?.firstName}"
-            textViewEmail.text = "Email: ${user?.email}"
-            textViewPhone.text = "Contact Number: ${user?.phone}"
-
+            if (user != null) {
+                // Populate user information
+                textViewUserName.text = "Name: ${user?.firstName}"
+                textViewEmail.text = "Email: ${user?.email}"
+                textViewPhone.text = "Contact Number: ${user?.phone}"
+            }else{
+                Log.d("USerNull", "onCreate: User Null")
+            }
             // Populate booking details
             textViewCheckInDate.text = "Check-In Date: ${bookingDetails.checkInDate}"
             textViewCheckOutDate.text = "Check-Out Date: ${bookingDetails.checkOutDate}"
@@ -71,7 +76,7 @@ class PaymentActivity : AppCompatActivity() {
             textViewHotelName.text = "Hotel Name: ${bookingDetails.hotelName}"
 
             // Calculate and set total amount
-            totalAmount = calculateTotalAmount(bookingDetails.rooms, bookingDetails.price).toString()
+            totalAmount = calculateTotalAmount(bookingDetails.rooms, bookingDetails.price,bookingDetails.totalDays).toString()
             textViewPrice.text = "Total Amount: ${totalAmount}"
 
             paymentButton.text = "Pay $totalAmount"
@@ -94,15 +99,77 @@ class PaymentActivity : AppCompatActivity() {
         }
 
         binding.paymentButton.setOnClickListener {
-            confirmPayment(bookingDetails)
+            if (validateCardDetails()) {
+
+                confirmPayment(bookingDetails)
+            }
         }
     }
 
 
-    private fun calculateTotalAmount(rooms: Int, hotelRoomPrice: Int): Int {
+    private fun calculateTotalAmount(rooms: Int, hotelRoomPrice: Int,totalDays:Int): Int {
         // Replace this with your actual calculation logic based on room rates, etc.
-        return rooms * hotelRoomPrice
+        return rooms * hotelRoomPrice * totalDays
     }
+
+    private fun validateCardDetails(): Boolean {
+        val cardName= binding.etNameOnCard.text.toString().trim()
+        val cardNumber = binding.etCardNumber.text.toString().trim()
+        val expiry = binding.etExpiry.text.toString().trim()
+        val cvv = binding.etCvv.text.toString().trim()
+
+        if (cardName.isEmpty()) {
+            showToast("Please Enter Card Name")
+            return false
+        }
+
+        // Check if card number is empty or not in a valid format (e.g., 16 digits for Visa/MasterCard)
+        if (cardNumber.isEmpty() || !isValidCardNumber(cardNumber)) {
+            showToast("Please enter a valid 16 digit card number")
+            return false
+        }
+
+        // Check if expiry date is empty or not in a valid format (e.g., MM/YY)
+        if (expiry.isEmpty() || !isValidExpiryDate(expiry)) {
+            showToast("Please enter a valid expiry date with Month and Year (MM/YY)")
+            return false
+        }
+
+        // Check if CVV is empty or not in a valid format (e.g., 3 or 4 digits)
+        if (cvv.isEmpty() || !isValidCVV(cvv)) {
+            showToast("Please enter a valid 3 digit CVV")
+            return false
+        }
+
+        // Additional validations if needed
+
+        return true
+    }
+
+    private fun isValidCardNumber(cardNumber: String): Boolean {
+        // Add your card number validation logic here
+        // For example, check if the card number has 16 digits for Visa/MasterCard
+        return cardNumber.length == 16
+    }
+
+    private fun isValidExpiryDate(expiry: String): Boolean {
+        // Add your expiry date validation logic here
+        // For example, check if the format is MM/YY and if MM is between 01 and 12
+        val parts = expiry.split("/")
+        if (parts.size != 2) return false
+        val (month, year) = parts
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR) % 100 // Get last two digits of the current year
+        val validYear = year.toIntOrNull() ?: return false
+        val validMonth = month.toIntOrNull() ?: return false
+        return validYear >= currentYear && validMonth in 1..12
+    }
+
+    private fun isValidCVV(cvv: String): Boolean {
+        // Add your CVV validation logic here
+        // For example, check if CVV has 3 or 4 digits
+        return cvv.length in 3..4 && cvv.toIntOrNull() != null
+    }
+
 
 
     private fun confirmPayment(bookingDetails: BookingDetailsData) {
@@ -145,6 +212,10 @@ class PaymentActivity : AppCompatActivity() {
             }
         })
     }
+
+
+
+
 
     private fun showToast(message: String) {
         Toast.makeText(this@PaymentActivity, message, Toast.LENGTH_SHORT).show()

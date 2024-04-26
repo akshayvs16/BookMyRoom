@@ -144,7 +144,7 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="16dp">
 
-                    <ImageView
+                  <!--  <ImageView
                         android:id="@+id/imageView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_arrow_right" />
-
+-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -198,7 +198,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="16dp">
 
-                    <ImageView
+                   <!-- <ImageView
                         android:id="@+id/payment_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -232,7 +232,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_arrow_right" />
-
+-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -252,7 +252,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="16dp">
 
-                    <ImageView
+                 <!--   <ImageView
                         android:id="@+id/security_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -286,7 +286,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_arrow_right" />
-
+-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
@@ -307,7 +307,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="16dp">
 
-                    <ImageView
+                <!--    <ImageView
                         android:id="@+id/notification_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -341,7 +341,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_arrow_right" />
-
+-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -361,41 +361,41 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="16dp">
 
-                    <ImageView
-                        android:id="@+id/help_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:src="@drawable/ic_info_square_border"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <!--  <ImageView
+                          android:id="@+id/help_icon"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginStart="16dp"
+                          android:src="@drawable/ic_info_square_border"
+                          app:layout_constraintBottom_toBottomOf="parent"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/help_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:text="@string/setting_category_help"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/help_icon"
-                        app:layout_constraintStart_toEndOf="@+id/help_icon"
-                        app:layout_constraintTop_toTopOf="@+id/help_icon"
-                        app:layout_constraintVertical_bias="0.483" />
+                      <TextView
+                          android:id="@+id/help_text"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginStart="24dp"
+                          android:text="@string/setting_category_help"
+                          android:textColor="@color/black"
+                          android:textSize="20sp"
+                          android:textStyle="bold"
+                          app:layout_constraintBottom_toBottomOf="@+id/help_icon"
+                          app:layout_constraintStart_toEndOf="@+id/help_icon"
+                          app:layout_constraintTop_toTopOf="@+id/help_icon"
+                          app:layout_constraintVertical_bias="0.483" />
 
-                    <ImageView
-                        android:id="@+id/help_enter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_arrow_right" />
-
+                      <ImageView
+                          android:id="@+id/help_enter"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginEnd="24dp"
+                          android:scaleType="centerCrop"
+                          app:layout_constraintBottom_toBottomOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          app:layout_constraintTop_toTopOf="parent"
+                          app:srcCompat="@drawable/ic_arrow_right" />
+  -->
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 

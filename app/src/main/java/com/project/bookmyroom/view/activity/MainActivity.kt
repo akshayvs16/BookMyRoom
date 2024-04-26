@@ -18,7 +18,6 @@ import com.project.bookmyroom.view.fragments.ProfileFragment
 import com.project.bookmyroom.view.fragments.SearchFragment
 
 class MainActivity : AppCompatActivity() , LocationChangeListener {
-    private var doubleBackToExitPressedOnce = false
     private lateinit var exitDialog: ExitDialog
 companion object{
     var defaultLocation: String = "Thiruvananthapuram" // Default location

@@ -71,7 +71,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/myBookingDataEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:text="No Data Found"
+            android:gravity="center"
+            android:fontFamily="@font/urbanist_regular"
+            android:textColor="@color/greyscale500"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bookingRecyclerview"
             android:layout_width="match_parent"

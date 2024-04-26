@@ -3,12 +3,11 @@ package com.project.bookmyroom.view.components.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.bookmyroom.R
-import com.project.bookmyroom.viewmodel.BookingItem
+import com.project.bookmyroom.model.data.BookingItem
 
 class BookingAdapter(private val bookingList: List<BookingItem>) :
     RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
@@ -25,10 +24,10 @@ class BookingAdapter(private val bookingList: List<BookingItem>) :
 
         fun bind(bookingItem: BookingItem) {
             // Bind data to UI elements
-            hotelNameTextView.text = "Hotel Name : ${bookingItem.hotelName}"
+            hotelNameTextView.text = "${bookingItem.hotelName}"
             dateTextView.text = ("Check In : ${bookingItem.checkIn}")
             locationTextView.text =("Check Date : ${bookingItem.checkOut}")
-            priceTextView.text =("Price : ${bookingItem.price.toString()}")
+            priceTextView.text =("Price : ₹${bookingItem.price.toString()}")
 
             // Set onClickListener for booking button if needed
          /*   bookButton.setOnClickListener {

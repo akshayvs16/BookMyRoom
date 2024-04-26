@@ -22,6 +22,7 @@ import com.project.bookmyroom.R.*
 import com.project.bookmyroom.model.data.BookingDetailsData
 import com.project.bookmyroom.model.data.Hotel
 import com.project.bookmyroom.viewmodel.RecentsData
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -92,11 +93,12 @@ class HotelBookingActivity : AppCompatActivity() {
             val roomType = editTextRoomType.selectedItem.toString()
             val hotelId = hotelData.id
             val hotelRoomPrice = hotelData.price.toInt()
+            val totalDays=calculateTotalDays(checkInDate,checkOutDate).toInt()
 
-            if (validateFields(checkInDate, checkOutDate, roomsStr, personsStr, hotelName, roomType)) {
+            if (validateFields(checkInDate, checkOutDate, roomsStr, personsStr, hotelName, roomType,)) {
                 val rooms = roomsStr.toInt()
                 val persons = personsStr.toInt()
-                val bookingDetails = BookingDetailsData(hotelId,hotelName,roomType,checkInDate, checkOutDate, rooms,persons, hotelRoomPrice)
+                val bookingDetails = BookingDetailsData(hotelId,hotelName,roomType,checkInDate, checkOutDate, rooms,persons, hotelRoomPrice,totalDays)
 
                 val intent = Intent(this, PaymentActivity::class.java)
                 intent.putExtra("BOOKING_DETAILS", bookingDetails)
@@ -138,7 +140,14 @@ class HotelBookingActivity : AppCompatActivity() {
             return false
         }
         // Additional validation checks if needed
-        // For example, check if the Check-In Date is before the Check-Out Date
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val checkIn = dateFormat.parse(checkInDate)
+        val checkOut = dateFormat.parse(checkOutDate)
+
+        if (checkOut.before(checkIn)) { // Check if check-out date is before check-in date
+            Toast.makeText(this, "Check-out date must be after or equal to check-in date", Toast.LENGTH_SHORT).show()
+            return false
+        }
         return true
     }
 
@@ -180,4 +189,25 @@ class HotelBookingActivity : AppCompatActivity() {
         // Example: hotelsList.addAll(getHotelsNearby())
         // hotelsAdapter.notifyDataSetChanged()
     }
+
+    private fun calculateTotalDays(checkInDate: String, checkOutDate: String): Long {
+        if (checkInDate.isEmpty() || checkOutDate.isEmpty()) {
+            return 0 // or handle the case where dates are empty in your logic
+        }
+
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        try {
+            val checkIn = dateFormat.parse(checkInDate)
+            val checkOut = dateFormat.parse(checkOutDate)
+
+            // Calculate the difference in milliseconds and convert to days
+            val differenceInMillis = checkOut.time - checkIn.time
+            return differenceInMillis / (1000 * 60 * 60 * 24)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            return 0 // or handle the parsing error as needed
+        }
+    }
+
+
 }
