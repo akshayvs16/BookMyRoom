@@ -155,28 +155,59 @@ class SignUpFragment : Fragment() {
         }
 
             signUpButton.setOnClickListener {
-                progressDialogHandler.showProgressDialog("Creating Account...")
                 val username = usernameEditText.text.toString().trim()
                 val email = emailEditText.text.toString().trim()
                 val password = passwordEditText.text.toString().trim()
                 val mobile = phoneEditText.text.toString().trim()
 
-                if (username.isNotEmpty() || email.isNotEmpty() ||mobile.isNotEmpty() || password.isNotEmpty()) {
-                    val signUpRequest = RegisterRequest(
-                        email = email,
-                        password = password,
-                        firstName = username,
-                        phone = mobile // Assuming you have added phone input
-                    )
-                    signUpApi(signUpRequest)// Call the API using the ViewModel
+                // Validate name
+                if (username.isEmpty()) {
+                    showToast("Please enter your name")
+                    return@setOnClickListener
+                }
 
-                } else {
+                // Validate email
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    showToast("Please enter a valid email address")
+                    return@setOnClickListener
+                }
+
+                // Validate mobile (add more validation criteria if needed)
+                if (mobile.isEmpty() ||mobile.length<10) {
+                    showToast("Please Enter your 10 Digit mobile number")
+                    return@setOnClickListener
+                }
+
+                // Validate password
+                if (password.length < 5) {
+                    showToast("Password must be at least 5 characters")
+                    return@setOnClickListener
+                }
+                if (username.isNotEmpty() || email.isNotEmpty() || mobile.isNotEmpty() || password.isNotEmpty()) {
+
+
+                    progressDialogHandler.showProgressDialog("Creating Account...")
+
+                    if (username.isNotEmpty() || email.isNotEmpty() || mobile.isNotEmpty() || password.isNotEmpty()) {
+                        val signUpRequest = RegisterRequest(
+                            email = email,
+                            password = password,
+                            firstName = username,
+                            phone = mobile // Assuming you have added phone input
+                        )
+                        signUpApi(signUpRequest)// Call the API using the ViewModel
+
+                    } else {
+                        progressDialogHandler.dismissProgressDialog()
+
+                        showToast("Please fill in all fields")
+                    }
+                }else {
                     progressDialogHandler.dismissProgressDialog()
 
                     showToast("Please fill in all fields")
                 }
             }
-
     }
 
     private fun signUpApi(registerRequest: RegisterRequest) {
