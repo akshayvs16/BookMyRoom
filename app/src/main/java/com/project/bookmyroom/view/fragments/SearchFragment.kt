@@ -117,19 +117,19 @@ class SearchFragment : Fragment() {
     private fun performSearch(query: String) {
         // Implement your search logic here
         // For demonstration, let's just filter the popular hotels based on the query
-        val filteredHotels = getPopularHotels().filter { hotel ->
+       /* val filteredHotels = getPopularHotels().filter { hotel ->
             hotel.placeName.contains(query, ignoreCase = true) || hotel.countryName.contains(query, ignoreCase = true)
         }
-
+*/
         // Update the RecyclerView with the filtered results
-        popularHotelsAdapter.submitList(filteredHotels)
+       /* popularHotelsAdapter.submitList(filteredHotels)
 
         // Show the RecyclerView if there are search results
         if (filteredHotels.isNotEmpty()) {
             recyclerViewPopularHotels.visibility = View.VISIBLE
         } else {
             recyclerViewPopularHotels.visibility = View.GONE
-        }
+        }*/
     }
 
     private fun loadJsonData(fileName: String): List<RecentsData> {

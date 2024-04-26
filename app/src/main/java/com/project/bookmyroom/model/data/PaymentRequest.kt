@@ -1,6 +1,7 @@
 package com.project.bookmyroom.model.data
 
 data class PaymentRequest(
+    val hotelName: String,
     val checkIn: String,
     val checkOut: String,
     val noOfRooms: String,

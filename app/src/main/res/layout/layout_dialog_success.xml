@@ -12,7 +12,18 @@
         android:layout_height="wrap_content"
         android:src="@drawable/il_payment_successful"
         android:padding="10dp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
+    <TextView
+        android:id="@+id/paymentSuccessfull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/payment_successfull"
+        android:gravity="center"
+        android:fontFamily="@font/urbanist_bold"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:visibility="gone"
+        />
 
     <ProgressBar
         android:id="@+id/progressLoading"

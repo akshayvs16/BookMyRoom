@@ -36,5 +36,6 @@
     <color name="greyscale100">#F5F5F5</color>
     <color name="greyscale50">#FAFAFA</color>
 
-
+    <color name="dark_blue">#00427A</color>
+    <color name="light_blue">#005FAF</color>
 </resources>

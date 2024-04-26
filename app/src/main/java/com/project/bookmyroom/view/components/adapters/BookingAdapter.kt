@@ -21,19 +21,19 @@ class BookingAdapter(private val bookingList: List<BookingItem>) :
         private val locationImageView = itemView.findViewById<ImageView>(R.id.fragment_booking_location_iv)
         private val locationTextView = itemView.findViewById<TextView>(R.id.fragment_booking_location_tv)
         private val priceTextView = itemView.findViewById<TextView>(R.id.fragment_booking_price)
-        private val bookButton = itemView.findViewById<Button>(R.id.fragment_booking_book_btn)
+      //  private val bookButton = itemView.findViewById<Button>(R.id.fragment_booking_book_btn)
 
         fun bind(bookingItem: BookingItem) {
             // Bind data to UI elements
-            hotelNameTextView.text = bookingItem.hotelName
-            dateTextView.text = bookingItem.date
-            locationTextView.text = bookingItem.location
-            priceTextView.text = bookingItem.price.toString()
+            hotelNameTextView.text = "Hotel Name : ${bookingItem.hotelName}"
+            dateTextView.text = ("Check In : ${bookingItem.checkIn}")
+            locationTextView.text =("Check Date : ${bookingItem.checkOut}")
+            priceTextView.text =("Price : ${bookingItem.price.toString()}")
 
             // Set onClickListener for booking button if needed
-            bookButton.setOnClickListener {
+         /*   bookButton.setOnClickListener {
                 // Handle booking button click action
-            }
+            }*/
         }
     }
 

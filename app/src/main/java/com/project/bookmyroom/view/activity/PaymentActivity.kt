@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.project.bookmyroom.R
+import com.project.bookmyroom.databinding.ActivityPaymentBinding
 import com.project.bookmyroom.model.data.BookingDetailsData
 import com.project.bookmyroom.model.data.PaymentRequest
 import com.project.bookmyroom.model.data.PaymentResponse
@@ -34,10 +35,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PaymentActivity : AppCompatActivity() {
+    private lateinit var bookingDetails: BookingDetailsData
+    private lateinit var binding: ActivityPaymentBinding
     private lateinit var totalAmount: String
     private lateinit var preferenceManager: PreferenceManager
-    private lateinit var btnBack: ImageButton
-    private lateinit var payment_button: MaterialButton
     private lateinit var user: User
 
 
@@ -45,64 +46,62 @@ class PaymentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityPaymentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_payment)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
         preferenceManager = PreferenceManager(this)
         user = preferenceManager.getUser()!!
-        val bookingDetailsCard = findViewById<MaterialCardView>(R.id.bookingDetailsCard)
-        val textViewCheckInDate = findViewById<TextView>(R.id.textViewCheckInDate)
-        val textViewCheckOutDate = findViewById<TextView>(R.id.textViewCheckOutDate)
-        val textViewRooms = findViewById<TextView>(R.id.textViewRooms)
-        val textViewRoomsType = findViewById<TextView>(R.id.textViewRoomsType)
-        val textViewPersons = findViewById<TextView>(R.id.textViewPersons)
-        val textViewHotelName = findViewById<TextView>(R.id.textViewHotelName)
-        val textViewTotalAmount = findViewById<TextView>(R.id.textViewTotalAmount)
-        val username = findViewById<TextView>(R.id.textViewUserName)
-        val email = findViewById<TextView>(R.id.textViewEmail)
-        val phone = findViewById<TextView>(R.id.textViewPhone)
-        btnBack = findViewById(R.id.btnBack)
-        payment_button = findViewById(R.id.payment_button)
 
+        // Initialize views using view binding
+        with(binding) {
+             bookingDetails = intent.getSerializableExtra("BOOKING_DETAILS") as BookingDetailsData
 
-        username.text="Name:  ${user?.firstName}"
-        email.text="Email:  ${ user?.email}"
-        phone.text= "Contact Number:  ${ user?.phone}"
+            // Populate user information
+            textViewUserName.text = "Name: ${user?.firstName}"
+            textViewEmail.text = "Email: ${user?.email}"
+            textViewPhone.text = "Contact Number: ${user?.phone}"
 
-        // Retrieve booking details from intent
-        val bookingDetails = intent.getSerializableExtra("BOOKING_DETAILS") as BookingDetailsData
+            // Populate booking details
+            textViewCheckInDate.text = "Check-In Date: ${bookingDetails.checkInDate}"
+            textViewCheckOutDate.text = "Check-Out Date: ${bookingDetails.checkOutDate}"
+            textViewRooms.text = "Rooms: ${bookingDetails.rooms}"
+            textViewRoomsType.text = "Room Type: ${bookingDetails.roomType}"
+            textViewPersons.text = "Persons: ${bookingDetails.persons}"
+            textViewHotelName.text = "Hotel Name: ${bookingDetails.hotelName}"
 
-        // Populate booking details
-        textViewCheckInDate.text = "Check-In Date: ${bookingDetails.checkInDate}"
-        textViewCheckOutDate.text = "Check-Out Date: ${bookingDetails.checkOutDate}"
-        textViewRooms.text = "Rooms: ${bookingDetails.rooms}"
-        textViewRoomsType.text = "Room Type: ${bookingDetails.roomType}"
-        textViewPersons.text = "Persons: ${bookingDetails.persons}"
-        textViewHotelName.text = "Hotel Name: ${bookingDetails.hotelName}"
+            // Calculate and set total amount
+            totalAmount = calculateTotalAmount(bookingDetails.rooms, bookingDetails.price).toString()
+            textViewPrice.text = "Total Amount: ${totalAmount}"
 
-        // Calculate total amount (replace this with your calculation logic)
-        totalAmount = calculateTotalAmount(bookingDetails.rooms, bookingDetails.persons).toString()
-        textViewTotalAmount.text = "Total Amount: $totalAmount"
-        payment_button.text="Pay $totalAmount"
-
-        btnBack.setOnClickListener {
-           // finishActivity(1)
-            finishAndRemoveTask() // Finish the current activity and go back to the previous one
+            paymentButton.text = "Pay $totalAmount"
         }
 
-        payment_button.setOnClickListener {
+        // Set click listeners using view binding
+        binding.btnBack.setOnClickListener {
+            finishAndRemoveTask()
+        }
+        binding.proceedToPayement.setOnClickListener {
+
+            binding.bookingDetailsCard.visibility=View.GONE
+            binding.userDetailsCard.visibility=View.GONE
+            binding.infoCard.visibility=View.GONE
+
+            binding.cardVisible.visibility=View.VISIBLE
+
+            binding.relativeBooking.visibility=View.VISIBLE
+            binding.etCardNumber.visibility=View.VISIBLE
+        }
+
+        binding.paymentButton.setOnClickListener {
             confirmPayment(bookingDetails)
         }
-
     }
 
-    private fun calculateTotalAmount(rooms: Int, persons: Int): Double {
+
+    private fun calculateTotalAmount(rooms: Int, hotelRoomPrice: Int): Int {
         // Replace this with your actual calculation logic based on room rates, etc.
-        return rooms * persons * 1000.0
+        return rooms * hotelRoomPrice
     }
 
 
@@ -110,6 +109,7 @@ class PaymentActivity : AppCompatActivity() {
         showSuccessDialog()
 
         val paymentRequest = PaymentRequest(
+            hotelName = bookingDetails.hotelName,
             checkIn = bookingDetails.checkInDate,
             checkOut = bookingDetails.checkOutDate,
             noOfRooms = bookingDetails.rooms.toString(),
@@ -160,17 +160,20 @@ class PaymentActivity : AppCompatActivity() {
 
         val imageSuccess = dialogView.findViewById<ImageView>(R.id.imageSuccess)
         val progressLoading = dialogView.findViewById<ProgressBar>(R.id.progressLoading)
+        val paymentSuccessfull = dialogView.findViewById<TextView>(R.id.paymentSuccessfull)
         val btnClose = dialogView.findViewById<Button>(R.id.btnClose)
 
         // Initially show progressLoading
         progressLoading.visibility = View.VISIBLE
         imageSuccess.visibility = View.GONE
         btnClose.visibility = View.GONE
+        paymentSuccessfull.visibility = View.GONE
 
         // Delayed switch to imageSuccess and btnClose after 2 seconds
         Handler(Looper.getMainLooper()).postDelayed({
             progressLoading.visibility = View.GONE
             imageSuccess.visibility = View.VISIBLE
+            paymentSuccessfull.visibility = View.VISIBLE
             btnClose.visibility = View.VISIBLE
         }, 2000)
 

@@ -91,11 +91,12 @@ class HotelBookingActivity : AppCompatActivity() {
             val hotelName = hotel_name.text.toString()
             val roomType = editTextRoomType.selectedItem.toString()
             val hotelId = hotelData.id
+            val hotelRoomPrice = hotelData.price.toInt()
 
             if (validateFields(checkInDate, checkOutDate, roomsStr, personsStr, hotelName, roomType)) {
                 val rooms = roomsStr.toInt()
                 val persons = personsStr.toInt()
-                val bookingDetails = BookingDetailsData(hotelId,hotelName,roomType,checkInDate, checkOutDate, rooms, persons)
+                val bookingDetails = BookingDetailsData(hotelId,hotelName,roomType,checkInDate, checkOutDate, rooms,persons, hotelRoomPrice)
 
                 val intent = Intent(this, PaymentActivity::class.java)
                 intent.putExtra("BOOKING_DETAILS", bookingDetails)

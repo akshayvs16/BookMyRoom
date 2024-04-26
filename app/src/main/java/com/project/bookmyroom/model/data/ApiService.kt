@@ -1,6 +1,9 @@
 package com.project.bookmyroom.model.data
 
 
+import com.project.bookmyroom.viewmodel.BookedRoomsResponse
+import com.project.bookmyroom.viewmodel.BookingItem
+import com.project.bookmyroom.viewmodel.MyBookingUserRequest
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,5 +25,10 @@ interface ApiService {
 
     @POST("rooms/register")
     fun saveUserPayment(@Body request: PaymentRequest): Call<PaymentResponse>
+
+
+    @POST("rooms/list")
+    fun getBookedRooms(@Body request: MyBookingUserRequest): Call<BookedRoomsResponse>
+
 }
 
