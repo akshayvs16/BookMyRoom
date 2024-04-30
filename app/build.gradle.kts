@@ -76,6 +76,7 @@ dependencies {
 
 
 
+    implementation ("com.github.1902shubh:SendMail:1.0.0")
 
 
 

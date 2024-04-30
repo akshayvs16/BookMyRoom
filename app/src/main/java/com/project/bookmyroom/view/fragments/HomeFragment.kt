@@ -1,5 +1,6 @@
 package com.project.bookmyroom.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,9 +22,12 @@ import com.project.bookmyroom.model.data.Hotel
 import com.project.bookmyroom.model.data.HotelResponse
 import com.project.bookmyroom.model.data.PlacesResponse
 import com.project.bookmyroom.network.RetrofitClient
+import com.project.bookmyroom.view.activity.DetailsActivity
+import com.project.bookmyroom.view.activity.DistrictActivity
 import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.adapters.NearPlacesAdapter
 import com.project.bookmyroom.view.components.adapters.RecentsAdapter
+import com.project.bookmyroom.view.components.interfaces.LocationChangeListener
 import com.project.bookmyroom.viewmodel.NearPlacesData
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +44,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment() ,LocationChangeListener{
 
     private lateinit var recentRecycler: RecyclerView
     private lateinit var progress_circular: CircularProgressIndicator
@@ -59,7 +63,9 @@ class HomeFragment : Fragment() {
     private lateinit var NearData_notFound:MaterialTextView
     private lateinit var currentLocation_layout: LinearLayout
 
+    private var locationChangeListener: LocationChangeListener? = null
 
+    val districtId = getDistrictId(MainActivity.defaultLocation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,20 +90,41 @@ class HomeFragment : Fragment() {
         currentLocation = view.findViewById(R.id.currentLocation)
         currentLocation_layout = view.findViewById(R.id.currentLocation_layout)
 
-        currentLocation.text = MainActivity.defaultLocation
 
 
-        val districtId = getDistrictId(currentLocation.text.toString())
 
         fetchPlacesByDistrict(districtId)
         fetchHotelsByDistrict(districtId)
         
         currentLocation_layout.setOnClickListener {
           //  (requireActivity() as MainActivity).replaceFragment(R.id.fragmentContainer, SearchFragment())
+            val i = Intent(context, DistrictActivity::class.java)
+            requireContext().startActivity(i)
         }
         // Setup category chips click listeners
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        currentLocation.text = MainActivity.defaultLocation
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        currentLocation.text = MainActivity.defaultLocation
+        fetchPlacesByDistrict(districtId)
+        fetchHotelsByDistrict(districtId)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+       currentLocation.text = MainActivity.defaultLocation
+        locationChangeListener?.onLocationChanged(currentLocation.text.toString())
+        fetchPlacesByDistrict(districtId)
+        fetchHotelsByDistrict(districtId)
     }
 
 
@@ -259,5 +286,10 @@ class HomeFragment : Fragment() {
         }
         }
         return dataList
+    }
+
+    override fun onLocationChanged(newLocation: String) {
+        currentLocation.text=newLocation
+        locationChangeListener?.onLocationChanged(newLocation)
     }
 }

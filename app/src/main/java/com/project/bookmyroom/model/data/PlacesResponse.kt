@@ -1,6 +1,11 @@
 package com.project.bookmyroom.model.data
 
+
+
 data class PlacesResponse(val message: String, val data: List<Places>)
+
+
+data class SearchRequest(val keyword: String)
 
 data class Places(
     val _id: String,

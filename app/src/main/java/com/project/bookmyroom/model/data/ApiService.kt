@@ -27,5 +27,9 @@ interface ApiService {
     @POST("rooms/list")
     fun getBookedRooms(@Body request: MyBookingUserRequest): Call<BookedRoomsResponse>
 
+    @POST("places/search")
+    fun searchPlaces(@Body request: SearchRequest): Call<PlacesResponse>
+
+
 }
 

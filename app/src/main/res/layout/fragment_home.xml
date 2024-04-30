@@ -19,13 +19,13 @@
             android:paddingStart="24dp"
             android:paddingEnd="8dp">
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/btnNotifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_notification_border"
                 android:contentDescription="@string/home_screen_cd_notifications"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true" />-->
 
             <!--<ImageView
                 android:id="@+id/btnBookmarks"
@@ -107,7 +107,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/greyscale500"
                         android:textStyle="bold"
-                        android:text="Trivandrum"
+                        android:text="Thiruvananthapuram"
                          />
 
                     <!-- Filter Icon -->

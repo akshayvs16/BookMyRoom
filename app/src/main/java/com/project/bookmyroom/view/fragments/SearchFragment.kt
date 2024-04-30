@@ -2,6 +2,8 @@ package com.project.bookmyroom.view.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,24 +18,41 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.textview.MaterialTextView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.bookmyroom.R
+import com.project.bookmyroom.model.data.ApiService
+import com.project.bookmyroom.model.data.PlacesResponse
+import com.project.bookmyroom.model.data.SearchRequest
+import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.view.activity.MainActivity
+import com.project.bookmyroom.view.components.adapters.NearPlacesAdapter
 import com.project.bookmyroom.view.components.adapters.PopularHotelsAdapter
 import com.project.bookmyroom.view.components.interfaces.LocationChangeListener
+import com.project.bookmyroom.viewmodel.NearPlacesData
 import com.project.bookmyroom.viewmodel.RecentsData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), TextWatcher {
 
     private var locationChangeListener: LocationChangeListener? = null
-    private lateinit var recyclerViewPopularHotels: RecyclerView
     private lateinit var editTextSearch: AutoCompleteTextView
     private lateinit var buttonSearch: Button
-    private lateinit var popularHotelsAdapter: PopularHotelsAdapter
     private val allDistricts = mutableListOf<String>()
     private lateinit var currentLocation: TextView
+
+    private val nearHotelsDataList: MutableList<NearPlacesData> = ArrayList()
+    private lateinit var nearPlaceRecycler: RecyclerView
+    private var nearPlacesAdapter: NearPlacesAdapter? = null
+
+    private lateinit var progress_circular: CircularProgressIndicator
+
+    private lateinit var NearData_notFound: MaterialTextView
 
 
     override fun onCreateView(
@@ -42,18 +61,25 @@ class SearchFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
+        progress_circular=view.findViewById(R.id.progress_circular_View)
+        NearData_notFound=view.findViewById(R.id.placeData_notFound)
 
-        recyclerViewPopularHotels = view.findViewById(R.id.recycler_view_popular_hotels)
+
+
+        nearPlaceRecycler = view.findViewById(R.id.recycler_view_popular_hotels)
+
         editTextSearch = view.findViewById(R.id.edit_text_search)
         buttonSearch = view.findViewById(R.id.button_search)
         currentLocation=view.findViewById(R.id.currentLocation)
-        loadDistricts()
+        //loadDistricts()
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, allDistricts)
         editTextSearch.setAdapter(adapter)
         currentLocation.setText(MainActivity.defaultLocation)
 
+        editTextSearch.addTextChangedListener(this)
+        progress_circular.visibility=View.GONE
 
-        view.findViewById<MaterialCardView>(R.id.card_trivandrum)?.setOnClickListener {
+      /*  view.findViewById<MaterialCardView>(R.id.card_trivandrum)?.setOnClickListener {
             updateLocation("Thiruvananthapuram")
         }
 
@@ -64,27 +90,48 @@ class SearchFragment : Fragment() {
 
         view.findViewById<MaterialCardView>(R.id.card_kozhikode)?.setOnClickListener {
             updateLocation("Kozhikode")
-        }
+        }*/
         // Setup click listener for the Search button
         buttonSearch.setOnClickListener {
             performSearch(editTextSearch.text.toString())
-            updateLocation(editTextSearch.text.toString())
+            //updateLocation(editTextSearch.text.toString())
 
         }
 
         // Setup popular hotels RecyclerView
-        recyclerViewPopularHotels.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         // Initialize adapter but don't set it to RecyclerView yet
-        popularHotelsAdapter = PopularHotelsAdapter(emptyList())
-        recyclerViewPopularHotels.adapter = popularHotelsAdapter
 
         return view
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //loadDistricts() // Load districts data when the view is created
+
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        // No action needed here, but required by TextWatcher interface
+        nearPlaceRecycler.visibility=View.VISIBLE
+
+        progress_circular.visibility=View.VISIBLE
+
+
     }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        // No action needed here, but required by TextWatcher interface
+    }
+
+    override fun afterTextChanged(s: Editable?) {
+        val query = s.toString().trim()
+        if (query.isNotEmpty()) {
+            performSearch(query)
+        }else{
+            nearHotelsDataList.clear()
+            nearPlaceRecycler.visibility=View.GONE
+            NearData_notFound.visibility=View.VISIBLE
+            progress_circular.visibility=View.GONE
+
+        }
+    }
+
 
 
     override fun onAttach(context: Context) {
@@ -104,47 +151,88 @@ class SearchFragment : Fragment() {
     }
 
 
-    private fun getPopularHotels(): List<RecentsData> {
-        // Return a list of popular hotels
-        return loadJsonData("trending.json")
-       /* return listOf(
-            RecentsData("Hotel 1", "Description 1", R.drawable.ic_hotel),
-            RecentsData("Hotel 2", "Description 2", R.drawable.ic_hotel),
-            // Add more hotel items as needed
-        )*/
-    }
-
     private fun performSearch(query: String) {
-        // Implement your search logic here
-        // For demonstration, let's just filter the popular hotels based on the query
-       /* val filteredHotels = getPopularHotels().filter { hotel ->
-            hotel.placeName.contains(query, ignoreCase = true) || hotel.countryName.contains(query, ignoreCase = true)
-        }
-*/
-        // Update the RecyclerView with the filtered results
-       /* popularHotelsAdapter.submitList(filteredHotels)
+        progress_circular.visibility = View.VISIBLE
+        if (query.isNotEmpty()) {
+            val apiService = RetrofitClient.instance
+            val request = SearchRequest(query)
 
-        // Show the RecyclerView if there are search results
-        if (filteredHotels.isNotEmpty()) {
-            recyclerViewPopularHotels.visibility = View.VISIBLE
-        } else {
-            recyclerViewPopularHotels.visibility = View.GONE
-        }*/
+            apiService.searchPlaces(request).enqueue(object : Callback<PlacesResponse> {
+                override fun onResponse(
+                    call: Call<PlacesResponse>,
+                    response: Response<PlacesResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val placesResponse = response.body()
+                        placesResponse?.let {
+                            setNearPlacesRecycler(parseApiResponse(it))
+                        }
+                    } else {
+                        Log.e("SearchFragment", "API call failed: ${response.code()}")
+                        progress_circular.visibility=View.GONE
+                        NearData_notFound.visibility=View.VISIBLE
+                        nearPlaceRecycler.visibility=View.GONE
+                    }
+                }
+
+                override fun onFailure(call: Call<PlacesResponse>, t: Throwable) {
+                    Log.e("SearchFragment", "Error fetching data: ${t.message}")
+                    progress_circular.visibility=View.GONE
+                    NearData_notFound.visibility=View.VISIBLE
+                    nearPlaceRecycler.visibility=View.GONE
+
+                }
+            })
+        }else {
+            progress_circular.visibility=View.GONE
+            NearData_notFound.visibility=View.VISIBLE}
     }
 
-    private fun loadJsonData(fileName: String): List<RecentsData> {
-        val jsonString = try {
-            val inputStream = requireContext().assets.open(fileName)
-            inputStream.bufferedReader().use { it.readText() }
-        } catch (e: IOException) {
-            Log.e("HomeFragment", "Error reading JSON file: ${e.message}")
-            e.printStackTrace()
-            ""
-        }
+    private fun parseApiResponse(response: PlacesResponse): List<NearPlacesData> {
+        val dataList = mutableListOf<NearPlacesData>()
+        val apiData = response.data
+        if (apiData.isEmpty()){
+            NearData_notFound.visibility=View.VISIBLE
 
-        val type = object : TypeToken<List<RecentsData>>() {}.type
-        return Gson().fromJson(jsonString, type) ?: emptyList()
+        }else {
+            NearData_notFound.visibility = View.GONE
+
+            for (item in apiData) {
+                val nearPlace = NearPlacesData(
+                    item.name,
+                    item.address,
+                    item.description,
+                    item.districtId,
+                    item.nearByBusStops,
+                    item.nearByRailStops,
+                    item.lat,
+                    item.image,
+                    item.id
+
+                )
+                dataList.add(nearPlace)
+            }
+        }
+        return dataList
     }
+
+
+    private fun setNearPlacesRecycler(dataList: List<NearPlacesData>) {
+        if (!isAdded || context == null) {
+            return
+        }
+        nearHotelsDataList.clear()
+        nearHotelsDataList.addAll(dataList)
+
+        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        nearPlaceRecycler.layoutManager = layoutManager
+        nearPlacesAdapter = NearPlacesAdapter(requireContext(), nearHotelsDataList)
+        nearPlaceRecycler.adapter = nearPlacesAdapter
+        nearPlaceRecycler.invalidate()
+        progress_circular.visibility=View.GONE
+
+    }
+
 
     private fun loadDistricts() {
         // Load districts data from your source and populate allDistricts list

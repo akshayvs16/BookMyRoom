@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -31,10 +32,14 @@ import com.project.bookmyroom.preference.PreferenceManager
 import com.project.bookmyroom.view.CommonDataArea.Companion.userEmail
 import com.project.bookmyroom.view.CommonDataArea.Companion.userName
 import com.project.bookmyroom.view.CommonDataArea.Companion.userPhone
+import papaya.`in`.sendmail.SendMail
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Calendar
+
+
+
 
 class PaymentActivity : AppCompatActivity() {
     private lateinit var bookingDetails: BookingDetailsData
@@ -42,6 +47,7 @@ class PaymentActivity : AppCompatActivity() {
     private lateinit var totalAmount: String
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var user: User
+    private  var calcTotalDay: Int =1
 
 
 
@@ -75,8 +81,9 @@ class PaymentActivity : AppCompatActivity() {
             textViewPersons.text = "Persons: ${bookingDetails.persons}"
             textViewHotelName.text = "Hotel Name: ${bookingDetails.hotelName}"
 
+            calcTotalDay = if (bookingDetails.totalDays==0){ 1 }else bookingDetails.totalDays
             // Calculate and set total amount
-            totalAmount = calculateTotalAmount(bookingDetails.rooms, bookingDetails.price,bookingDetails.totalDays).toString()
+            totalAmount = calculateTotalAmount(bookingDetails.rooms, bookingDetails.price,calcTotalDay,bookingDetails.roomType).toString()
             textViewPrice.text = "Total Amount: ${totalAmount}"
 
             paymentButton.text = "Pay $totalAmount"
@@ -107,10 +114,17 @@ class PaymentActivity : AppCompatActivity() {
     }
 
 
-    private fun calculateTotalAmount(rooms: Int, hotelRoomPrice: Int,totalDays:Int): Int {
-        // Replace this with your actual calculation logic based on room rates, etc.
-        return rooms * hotelRoomPrice * totalDays
+    private fun calculateTotalAmount(rooms: Int, hotelRoomPrice: Int,totalDays:Int,roomType:String): Int {
+        var totalAmount = rooms * hotelRoomPrice * totalDays // Calculate total amount initially
+
+        // Adjust total amount based on room type
+        if (roomType == "NON-AC") {
+            totalAmount -= 150 * rooms // Reduce 150 for each NON-AC room
+        }
+
+        return totalAmount
     }
+
 
     private fun validateCardDetails(): Boolean {
         val cardName= binding.etNameOnCard.text.toString().trim()
@@ -196,6 +210,7 @@ class PaymentActivity : AppCompatActivity() {
                         // Handle successful response
                        // Toast.makeText(this@PaymentActivity, paymentResponse.message, Toast.LENGTH_SHORT).show()
                         // Optionally, you can navigate to another activity or perform other actions here
+                        sendMail(user.email,"")
                     } else {
                         showToast("Error Can't make Payment right now")
 
@@ -213,7 +228,33 @@ class PaymentActivity : AppCompatActivity() {
         })
     }
 
-
+    fun sendMail(mailId: String, resetLink: String) {
+        Log.d("sendMail", "sendMail: $mailId")
+        val mail = SendMail(
+            "ktourismapp@gmail.com",
+            "ydjb npxs vkfe tsta",
+            mailId,
+            "Booked[K-Tourism]",
+            "    Dear ${user.firstName},\n" +
+                    "\n" +
+                    "        Your booking has been confirmed with the following details:\n" +
+                    "\n" +
+                    "        Hotel Name: ${bookingDetails.hotelName}\n" +
+                    "        Room Type: ${bookingDetails.roomType}\n" +
+                    "        Check-In Date: ${bookingDetails.checkInDate}\n" +
+                    "        Check-Out Date: ${bookingDetails.checkOutDate}\n" +
+                    "        Number of Rooms: ${bookingDetails.rooms}\n" +
+                    "        Number of Persons: ${bookingDetails.persons}\n" +
+                    "        Total Price: ${bookingDetails.price}\n" +
+                    "        Total Days: ${calcTotalDay}\n" +
+                    "\n" +
+                    "        Thank you for choosing our services.\n" +
+                    "\n" +
+                    "        Best Regards,\n" +
+                    "        K-Tourism\n"
+        )
+        mail.execute()
+    }
 
 
 

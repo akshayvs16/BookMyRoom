@@ -1,6 +1,8 @@
 package com.project.bookmyroom.view.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.activity.enableEdgeToEdge
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() , LocationChangeListener {
     private lateinit var exitDialog: ExitDialog
 companion object{
     var defaultLocation: String = "Thiruvananthapuram" // Default location
+    private const val REQUEST_CODE_DISTRICT_ACTIVITY = 1001
 
 }
 
@@ -72,4 +75,6 @@ companion object{
     override fun onLocationChanged(newLocation: String) {
         defaultLocation = newLocation
     }
+
+
 }
