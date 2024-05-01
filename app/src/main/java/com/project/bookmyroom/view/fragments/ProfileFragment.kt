@@ -10,6 +10,8 @@ import android.widget.TextView
 import com.project.bookmyroom.databinding.FragmentProfileBinding
 import com.project.bookmyroom.preference.PreferenceManager
 import com.project.bookmyroom.view.CommonDataArea.Companion.userName
+import com.project.bookmyroom.view.CommonDataArea.Companion.userPhone
+import com.project.bookmyroom.view.activity.DistrictActivity
 import com.project.bookmyroom.view.activity.LoginActivity
 import com.project.bookmyroom.view.components.ExitDialog
 
@@ -36,11 +38,20 @@ class ProfileFragment : Fragment() {
         binding.logoutCard.setOnClickListener {
             onLogoutClicked()
         }
+
+        binding.districtChoose.setOnClickListener {
+            val i = Intent(context, DistrictActivity::class.java)
+            requireContext().startActivity(i)
+        }
     }
 
     private fun displayUsername() {
         val username = preferenceManager.getUser()?.firstName
-            binding.userName.text = username
+        val useremail = preferenceManager.getUser()?.email
+        val userphone = preferenceManager.getUser()?.phone
+            binding.userName.text ="Name: ${ username}"
+            binding.userEmail.text ="Email: ${ useremail}"
+            binding.userPhone.text ="Phone: ${ userphone}"
 
     }
 

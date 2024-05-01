@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textview.MaterialTextView
 import com.project.bookmyroom.R
 import com.project.bookmyroom.network.RetrofitClient
@@ -33,6 +34,8 @@ private const val ARG_PARAM2 = "param2"
 class MyBookingFragment : Fragment() {
 
     private lateinit var preferenceManager: PreferenceManager
+    private lateinit var booking_progressLoading_circular: CircularProgressIndicator
+
 
 
     private lateinit var myBookingRecycler: RecyclerView
@@ -54,13 +57,17 @@ class MyBookingFragment : Fragment() {
         val view= inflater.inflate(R.layout.fragment_my_booking, container, false)
 
         val user=preferenceManager.getUser()
-
+        booking_progressLoading_circular=view.findViewById(R.id.booking_progressLoading_circular)
         myBookingRecycler = view.findViewById(R.id.bookingRecyclerview)
         noDataText = view.findViewById(R.id.myBookingDataEmpty)
         if (user != null) {
 
             fetchMyBookingsByUserId(user.userId)
-        }else     Log.d("USerNull", "onCreate: User Null")
+
+        }else{
+
+            Log.d("USerNull", "onCreate: User Null")
+        }
 
         return view
     }
@@ -77,8 +84,7 @@ class MyBookingFragment : Fragment() {
 
 
     private fun fetchMyBookingsByUserId(userId: String) {
-        /*progress_circular.visibility=View.VISIBLE
-        progress_circular.progress*/
+        booking_progressLoading_circular.visibility=View.VISIBLE
 
         val apiService = RetrofitClient.instance
         val userIdRequest = MyBookingUserRequest(userId)
@@ -106,10 +112,11 @@ class MyBookingFragment : Fragment() {
         val apiData = response.data
         if (apiData.isEmpty()){
             noDataText.visibility=View.VISIBLE
+            booking_progressLoading_circular.visibility=View.GONE
         }
         else {
             noDataText.visibility = View.GONE
-
+            booking_progressLoading_circular.visibility=View.GONE
             for (item in apiData) {
                 val bookedItem = BookingItem(
                     item._id,
@@ -147,8 +154,7 @@ class MyBookingFragment : Fragment() {
         bookingAdapter = BookingAdapter(bookedDataList)
         myBookingRecycler.adapter = bookingAdapter
         myBookingRecycler.invalidate()
-       /* progress_circular.visibility=View.GONE
-        NearData_notFound.visibility=View.GONE*/
+        booking_progressLoading_circular.visibility=View.GONE
 
     }
 

@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:padding="15dp"
                         android:paddingStart="15dp"
-                        android:text="Click Here to View Location"
+                        android:text="Click here to view location"
                         android:fontFamily="@font/urbanist_regular"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    >
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:context=".view.activity.PaymentActivity">
+<RelativeLayout
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.PaymentActivity"
+    android:layout_height="wrap_content"
     >
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/payment_appbar"
@@ -20,7 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -301,7 +303,7 @@
 <RelativeLayout
     android:id="@+id/relative_booking"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:visibility="gone"
 >
 
@@ -403,8 +405,10 @@
                 android:id="@+id/et_cvv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberPassword"
-                android:maxLines="1" />
+                android:inputType="numberSigned"
+                android:maxLines="1"
+                android:maxLength="3"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -428,7 +432,9 @@
 
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>
+
     </LinearLayout>
     </ScrollView>
     </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
