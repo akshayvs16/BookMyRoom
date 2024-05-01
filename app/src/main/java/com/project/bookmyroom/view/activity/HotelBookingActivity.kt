@@ -1,7 +1,9 @@
 package com.project.bookmyroom.view.activity
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -35,6 +37,10 @@ class HotelBookingActivity : AppCompatActivity() {
     private lateinit var hotel_name: TextView
     private lateinit var textViewAddress: TextView
     private lateinit var textViewContact: TextView
+    private lateinit var textViewLocation: TextView
+    private lateinit var engaged_rooms: TextView
+    private lateinit var available_rooms: TextView
+    private lateinit var total_rooms: TextView
     private lateinit var editTextCheckInDate: TextInputEditText
     private lateinit var editTextCheckOutDate: TextInputEditText
     private lateinit var editTextRooms: TextInputEditText
@@ -57,6 +63,7 @@ class HotelBookingActivity : AppCompatActivity() {
         hotel_name = findViewById(id.hotel_name)
         textViewAddress = findViewById(id.textViewAddress)
         textViewContact = findViewById(id.textViewContact)
+        textViewLocation=findViewById((id.textViewLocation))
         progress_circular=findViewById(id.progressLoading_circular)
 
         editTextCheckInDate = findViewById(id.editTextCheckInDate)
@@ -66,6 +73,9 @@ class HotelBookingActivity : AppCompatActivity() {
         editTextPersons = findViewById(id.editTextPersons)
         buttonBookNow = findViewById(id.buttonBookNow)
         payment_enter = findViewById(id.payment_enter)
+        total_rooms = findViewById(id.total_rooms)
+        engaged_rooms = findViewById(id.engaged_rooms)
+        available_rooms = findViewById(id.available_rooms)
 
         // Set address and contact number
         populateData()
@@ -76,8 +86,14 @@ class HotelBookingActivity : AppCompatActivity() {
 
         buttonBookNow.setOnClickListener {
             // Handle the "Book Now" button click event
-            booking_layout.visibility = View.VISIBLE
-            buttonBookNow.visibility = View.GONE
+            if (hotelData.availableRooms=="0"){
+                Toast.makeText(this, "Rooms not available here now", Toast.LENGTH_SHORT).show()
+
+            }else{
+                booking_layout.visibility = View.VISIBLE
+                buttonBookNow.visibility = View.GONE
+            }
+
             /*val checkInDate = editTextCheckInDate.text.toString()
             val checkOutDate = editTextCheckOutDate.text.toString()
             val rooms = editTextRooms.text.toString().toInt()
@@ -119,7 +135,9 @@ class HotelBookingActivity : AppCompatActivity() {
                 showDatePickerDialog(editTextCheckOutDate)
             }
 
-
+        textViewLocation.setOnClickListener {
+            loadLocation(this,hotelData.name,hotelData.address)
+        }
             // Perform booking or other actions here
             // For example:
             // bookHotel(checkInDate, checkOutDate, rooms, persons)
@@ -185,6 +203,10 @@ class HotelBookingActivity : AppCompatActivity() {
             .into(hotelImage)
         textViewAddress.text = hotelData.address
         textViewContact.text = hotelData.contactNumber
+
+        total_rooms.text = "Total Rooms :${ hotelData.totalRooms }"
+        available_rooms.text = "Available :${hotelData.availableRooms}"
+        engaged_rooms.text ="Engaged :${ hotelData.engagedRooms}"
         // Load and set hotels data
         // Example: hotelsList.addAll(getHotelsNearby())
         // hotelsAdapter.notifyDataSetChanged()
@@ -209,5 +231,15 @@ class HotelBookingActivity : AppCompatActivity() {
         }
     }
 
+    fun loadLocation(ctx: Context, name: String?, address: String?) {
+        try {
+            val geoUri = "http://maps.google.com/maps?q=$name,$address"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
 
+            ctx.startActivity(intent)
+        }
+        catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
 }

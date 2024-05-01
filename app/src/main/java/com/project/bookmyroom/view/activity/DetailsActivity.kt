@@ -1,5 +1,8 @@
 package com.project.bookmyroom.view.activity
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -36,6 +40,7 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var placeData: NearPlacesData
     private lateinit var placeHeading: TextView
     private lateinit var placeImage: ImageView
+    private lateinit var place_location: MaterialCardView
     private lateinit var descriptionText: TextView
     private lateinit var hotelsRecyclerView: RecyclerView
     private lateinit var hotelsAdapter: RecentsAdapter
@@ -60,6 +65,7 @@ class DetailsActivity : AppCompatActivity() {
         hotelsRecyclerView = findViewById(R.id.hotels_recycler)
         nearstBusStop = findViewById(R.id.nearst_busStop)
         nearstRailway = findViewById(R.id.nearst_railway)
+        place_location = findViewById(R.id.place_location)
         trendingData = getTrendingData()
 
 
@@ -72,6 +78,10 @@ class DetailsActivity : AppCompatActivity() {
         populateData()
         btnBack.setOnClickListener {
             finish() // Finish the current activity and go back to the previous one
+        }
+
+        place_location.setOnClickListener {
+            loadLocation(this, placeData?.name, placeData?.address)
         }
 
     }
@@ -162,6 +172,7 @@ class DetailsActivity : AppCompatActivity() {
         val apiData = response.data
         for (item in apiData) {
             val nearPlace = Hotel(
+                item.engagedRooms,
                 item._id,
                 item.name,
                 item.description,
@@ -171,11 +182,25 @@ class DetailsActivity : AppCompatActivity() {
                 item.districtId,
                 item.placeId,
                 item.image,
-                item.id
+                item.id,
+                item.availableRooms,
+                item.totalRooms
 
             )
             dataList.add(nearPlace)
         }
         return dataList
+    }
+
+    fun loadLocation(ctx: Context, name: String?, address: String?) {
+        try {
+            val geoUri = "http://maps.google.com/maps?q=$name,$address"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
+
+            ctx.startActivity(intent)
+        }
+        catch (ex: Exception) {
+            ex.printStackTrace()
+        }
     }
 }

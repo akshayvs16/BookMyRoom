@@ -269,6 +269,7 @@ class HomeFragment : Fragment() ,LocationChangeListener{
 
         for (item in apiData) {
             val nearPlace = Hotel(
+                item.engagedRooms,
                 item._id,
                 item.name,
                 item.description,
@@ -278,7 +279,9 @@ class HomeFragment : Fragment() ,LocationChangeListener{
                 item.districtId,
                 item.placeId,
                 item.image,
-                item.id
+                item.id,
+                item.availableRooms,
+                item.totalRooms
 
             )
             dataList.add(nearPlace)

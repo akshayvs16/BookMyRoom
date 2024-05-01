@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:padding="15dp"
                         android:paddingStart="15dp"
-                        android:text="Location"
+                        android:text="Click Here to View Location"
                         android:fontFamily="@font/urbanist_regular"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -177,6 +177,7 @@
                     >
 
                     <TextView
+                        android:id="@+id/bookNowTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Book Now"
@@ -184,12 +185,14 @@
                         android:fontFamily="@font/urbanist_semibold"
                         android:textSize="15sp"
                         android:padding="10dp"
+                        android:visibility="invisible"
                         android:textColor="@color/primary500"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:gravity="start"
                         />
+
                     <com.google.android.material.progressindicator.CircularProgressIndicator
                         android:id="@+id/progressLoading_circular"
                         android:layout_width="wrap_content"
@@ -197,7 +200,46 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+                    <LinearLayout
+                        android:id="@+id/romm_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/progressLoading_circular"
+                        android:layout_below="@id/progressLoading_circular"
+                        android:padding="10dp">
 
+                        <TextView
+                            android:id="@+id/total_rooms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Rooms :"
+                            android:textColor="@color/info"
+                            android:textSize="15sp"
+                            />
+
+                        <TextView
+                            android:id="@+id/available_rooms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Available Rooms :"
+                            android:textSize="15sp"
+                            android:textColor="@color/primary500"
+                            android:layout_marginStart="20dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/engaged_rooms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Engaged :"
+                            android:textSize="15sp"
+                            android:textColor="@color/error"
+                            android:layout_marginStart="20dp"
+                            android:visibility="invisible"
+                            />
+
+                    </LinearLayout>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/checkInDateLayout"
                         android:layout_width="0dp"
@@ -206,7 +248,7 @@
                         android:layout_margin="10dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/checkOutDateLayout"
-                        app:layout_constraintTop_toBottomOf="@id/progressLoading_circular"
+                        app:layout_constraintTop_toBottomOf="@id/romm_layout"
                         >
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -226,7 +268,7 @@
                         android:layout_margin="10dp"
                         app:layout_constraintStart_toEndOf="@id/checkInDateLayout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/progressLoading_circular"
+                        app:layout_constraintTop_toBottomOf="@id/romm_layout"
                        >
 
                         <com.google.android.material.textfield.TextInputEditText
