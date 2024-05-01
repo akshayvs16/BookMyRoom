@@ -240,7 +240,6 @@ class LoginFragment : Fragment() {
                     updateUiWithUser(it)
                     if (rememberMeCheckbox.isChecked) {
                         preferenceManager.saveCredentials(
-                           preferenceManager.getUser()?.firstName!!,
                             passwordEditText.text.toString(),
 
                             )

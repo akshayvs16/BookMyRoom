@@ -161,7 +161,7 @@ class SignUpFragment : Fragment() {
                 val mobile = phoneEditText.text.toString().trim()
 
                 // Validate name
-                if (username.isEmpty()) {
+                if (username.isEmpty()  ) {
                     showToast("Please enter your name")
                     return@setOnClickListener
                 }
@@ -173,7 +173,7 @@ class SignUpFragment : Fragment() {
                 }
 
                 // Validate mobile (add more validation criteria if needed)
-                if (mobile.isEmpty() ||mobile.length<10) {
+                if (mobile.isEmpty() ||mobile.length!=10) {
                     showToast("Please Enter your 10 Digit mobile number")
                     return@setOnClickListener
                 }
@@ -251,13 +251,13 @@ class SignUpFragment : Fragment() {
                 } else {
                     // Handle unsuccessful registration response
                     val errorMessage = response.errorBody()?.string()
-                    showToast("Registration Failed: $errorMessage")
+                    showToast("Registration Failed: Try Another Email $errorMessage.")
                 }
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 // Handle network or API call failure
-                showToast("Registration Failed: ${t.message}")
+                showToast("Registration Failed:Network Failure/Server Error ${t.message}")
             }
         })
     }
@@ -292,7 +292,6 @@ class SignUpFragment : Fragment() {
                     updateUiWithUser(it)
                     if (rememberMeCheckbox.isChecked) {
                         preferenceManager.saveCredentials(
-                            preferenceManager.getUser()?.firstName!!,
                             passwordEditText.text.toString(),
                         )
                     } else {

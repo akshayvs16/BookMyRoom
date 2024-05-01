@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private const val BASE_URL = "https://spectrum-freckle-scabiosa.glitch.me/api/"
+    private const val BASE_URL = "https://tourist-app-backend.onrender.com/api/"
 
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor { chain ->

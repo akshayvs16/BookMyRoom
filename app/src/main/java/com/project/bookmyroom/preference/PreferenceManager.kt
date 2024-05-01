@@ -7,10 +7,9 @@ class PreferenceManager(context: Context) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-    fun saveCredentials(username: String,  password: String) {
+    fun saveCredentials(rememberMe: String) {
         val editor = sharedPreferences.edit()
-        editor.putString(KEY_USERNAME, username)
-        editor.putString(KEY_PASSWORD, password)
+        editor.putString(REMEMBER_ME, rememberMe)
 
         editor.apply()
     }
@@ -30,9 +29,7 @@ class PreferenceManager(context: Context) {
 
     fun clearCredentials() {
         val editor = sharedPreferences.edit()
-        editor.remove(KEY_USERNAME)
-        editor.remove(KEY_EMAIL)
-        editor.remove(KEY_PASSWORD)
+        editor.remove(REMEMBER_ME)
         editor.apply()
     }
     fun clearUser() {
@@ -46,6 +43,7 @@ class PreferenceManager(context: Context) {
         editor.remove(KEY_CREATED_AT)
         editor.remove(KEY_UPDATED_AT)
         editor.remove(KEY_V)
+      //  editor.remove(REMEMBER_ME)
         editor.apply()
     }
 
@@ -61,6 +59,7 @@ class PreferenceManager(context: Context) {
         private const val KEY_CREATED_AT = "created_at"
         private const val KEY_UPDATED_AT = "updated_at"
         private const val KEY_V = "__v"
+        private const val REMEMBER_ME = "remember_me"
     }
 
     fun areCredentialsSaved(): Boolean {
