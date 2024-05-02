@@ -65,6 +65,7 @@ class ProfileFragment : Fragment() {
             // Handle logout action here, such as clearing user data, navigating to login screen, etc.
             // For example:
             preferenceManager.clearUser()
+            preferenceManager.clearCredentials()
             navigateToLoginScreen()
         }
         

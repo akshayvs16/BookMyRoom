@@ -63,7 +63,7 @@ class PreferenceManager(context: Context) {
     }
 
     fun areCredentialsSaved(): Boolean {
-        return sharedPreferences.contains(KEY_USERNAME) && sharedPreferences.contains(KEY_PASSWORD)
+        return sharedPreferences.contains(REMEMBER_ME)
     }
 
 
