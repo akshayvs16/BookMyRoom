@@ -6,11 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.project.bookmyroom.databinding.FragmentProfileBinding
 import com.project.bookmyroom.preference.PreferenceManager
-import com.project.bookmyroom.view.CommonDataArea.Companion.userName
-import com.project.bookmyroom.view.CommonDataArea.Companion.userPhone
 import com.project.bookmyroom.view.activity.DistrictActivity
 import com.project.bookmyroom.view.activity.LoginActivity
 import com.project.bookmyroom.view.components.ExitDialog

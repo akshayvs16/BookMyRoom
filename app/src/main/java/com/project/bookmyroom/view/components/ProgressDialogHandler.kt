@@ -15,7 +15,7 @@ class ProgressDialogHandler(private val context: Context) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_loading_dialog, null)
         val builder = AlertDialog.Builder(context)
             .setView(dialogView)
-            .setCancelable(true)
+            .setCancelable(false)
 
         progressDialog = builder.create()
         progressDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

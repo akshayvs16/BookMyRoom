@@ -14,24 +14,15 @@ import com.project.bookmyroom.view.replaceFragment
 
 class LoginActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
     private lateinit var binding: ActivityLoginBinding
-   // private val viewModel: LoginViewModel = LoginViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Initialize data binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        /*binding.viewModel = viewModel
-        binding.lifecycleOwner = this*/
         val group = findViewById<RadioGroup>(R.id.radio_group)
         group.setOnCheckedChangeListener(this)
         replaceFragment(R.id.frame_Layout_container, LoginFragment())
-        // Bind click listeners
-
-
-
-
-
 
     }
 

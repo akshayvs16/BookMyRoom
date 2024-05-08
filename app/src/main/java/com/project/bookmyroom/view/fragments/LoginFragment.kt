@@ -24,9 +24,6 @@ import com.project.bookmyroom.model.data.LoginResponse
 import com.project.bookmyroom.model.data.User
 import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.preference.PreferenceManager
-import com.project.bookmyroom.view.CommonDataArea.Companion.userEmail
-import com.project.bookmyroom.view.CommonDataArea.Companion.userId
-import com.project.bookmyroom.view.CommonDataArea.Companion.userName
 import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.ProgressDialogHandler
 import com.project.bookmyroom.view.fragments.ui.login.LoggedInUserView
@@ -41,7 +38,6 @@ class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentLoginBinding? = null
-
     private val binding get() = _binding!!
 
     private lateinit var preferenceManager: PreferenceManager
@@ -72,24 +68,6 @@ class LoginFragment : Fragment() {
         loadingProgressBar = binding.loading
         rememberMeCheckbox = binding.rememberMe
 
-
-
-       /* // Restore saved username and password
-        usernameEditText.setText(sharedPreferences.getString(KEY_USERNAME, ""))
-        passwordEditText.setText(sharedPreferences.getString(KEY_PASSWORD, ""))*/
-
-
-      /*  if (rememberMeCheckbox.isChecked &&
-            usernameEditText.text.isNotBlank() &&
-            passwordEditText.text.isNotBlank()
-        ) {
-            // Perform auto-login
-            loginViewModel.login(
-                usernameEditText.text.toString(),
-                passwordEditText.text.toString()
-            )
-        }*/
-
         return view
     }
 
@@ -100,7 +78,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
-
 
 
         rememberMeCheckbox.isChecked = preferenceManager.areCredentialsSaved()

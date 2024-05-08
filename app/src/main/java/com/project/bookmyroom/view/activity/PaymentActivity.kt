@@ -4,11 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -16,11 +14,6 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import com.project.bookmyroom.R
 import com.project.bookmyroom.databinding.ActivityPaymentBinding
 import com.project.bookmyroom.model.data.BookingDetailsData
@@ -29,9 +22,6 @@ import com.project.bookmyroom.model.data.PaymentResponse
 import com.project.bookmyroom.model.data.User
 import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.preference.PreferenceManager
-import com.project.bookmyroom.view.CommonDataArea.Companion.userEmail
-import com.project.bookmyroom.view.CommonDataArea.Companion.userName
-import com.project.bookmyroom.view.CommonDataArea.Companion.userPhone
 import papaya.`in`.sendmail.SendMail
 import retrofit2.Call
 import retrofit2.Callback

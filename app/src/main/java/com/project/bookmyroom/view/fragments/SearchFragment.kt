@@ -64,14 +64,12 @@ class SearchFragment : Fragment(), TextWatcher {
         progress_circular=view.findViewById(R.id.progress_circular_View)
         NearData_notFound=view.findViewById(R.id.placeData_notFound)
 
-
-
         nearPlaceRecycler = view.findViewById(R.id.recycler_view_popular_hotels)
 
         editTextSearch = view.findViewById(R.id.edit_text_search)
         buttonSearch = view.findViewById(R.id.button_search)
         currentLocation=view.findViewById(R.id.currentLocation)
-        //loadDistricts()
+
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, allDistricts)
         editTextSearch.setAdapter(adapter)
         currentLocation.setText(MainActivity.defaultLocation)
@@ -79,28 +77,13 @@ class SearchFragment : Fragment(), TextWatcher {
         editTextSearch.addTextChangedListener(this)
         progress_circular.visibility=View.GONE
 
-      /*  view.findViewById<MaterialCardView>(R.id.card_trivandrum)?.setOnClickListener {
-            updateLocation("Thiruvananthapuram")
-        }
 
-        // Set similar click listeners for Ernakulam and Kozhikode cards
-        view.findViewById<MaterialCardView>(R.id.card_ernakulam)?.setOnClickListener {
-            updateLocation("Ernakulam")
-        }
-
-        view.findViewById<MaterialCardView>(R.id.card_kozhikode)?.setOnClickListener {
-            updateLocation("Kozhikode")
-        }*/
         // Setup click listener for the Search button
         buttonSearch.setOnClickListener {
             performSearch(editTextSearch.text.toString())
             //updateLocation(editTextSearch.text.toString())
 
         }
-
-        // Setup popular hotels RecyclerView
-
-        // Initialize adapter but don't set it to RecyclerView yet
 
         return view
     }
@@ -111,7 +94,6 @@ class SearchFragment : Fragment(), TextWatcher {
         nearPlaceRecycler.visibility=View.VISIBLE
 
         progress_circular.visibility=View.VISIBLE
-
 
     }
 
@@ -231,29 +213,6 @@ class SearchFragment : Fragment(), TextWatcher {
         nearPlaceRecycler.invalidate()
         progress_circular.visibility=View.GONE
 
-    }
-
-
-    private fun loadDistricts() {
-        // Load districts data from your source and populate allDistricts list
-        // For demonstration, assume allDistricts is already populated
-        allDistricts.addAll(listOf(
-            "Thiruvananthapuram",
-            "Kollam",
-            "Pathanamthitta",
-            "Alappuzha",
-            "Kottayam",
-            "Idukki",
-            "Ernakulam",
-            "Thrissur",
-            "Palakkad",
-            "Malappuram",
-            "Kozhikode",
-            "Wayanad",
-            "Kannur",
-            "Kasaragod"
-        ))
-// Add your district names here
     }
 
 

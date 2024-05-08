@@ -16,19 +16,12 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.project.bookmyroom.R
-import com.project.bookmyroom.databinding.FragmentLoginBinding
 import com.project.bookmyroom.databinding.FragmentSignUpBinding
-import com.project.bookmyroom.model.data.ApiService
 import com.project.bookmyroom.model.data.RegisterRequest
 import com.project.bookmyroom.model.data.RegisterResponse
 import com.project.bookmyroom.model.data.User
 import com.project.bookmyroom.network.RetrofitClient
 import com.project.bookmyroom.preference.PreferenceManager
-import com.project.bookmyroom.view.CommonDataArea
-import com.project.bookmyroom.view.CommonDataArea.Companion.userEmail
-import com.project.bookmyroom.view.CommonDataArea.Companion.userId
-import com.project.bookmyroom.view.CommonDataArea.Companion.userName
-import com.project.bookmyroom.view.CommonDataArea.Companion.userPassword
 import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.ProgressDialogHandler
 import com.project.bookmyroom.view.fragments.ui.login.LoggedInUserView
@@ -49,11 +42,8 @@ class SignUpFragment : Fragment() {
     private lateinit var rememberMeCheckbox: CheckBox
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var progressDialogHandler:ProgressDialogHandler
-
     private var _binding: FragmentSignUpBinding? = null
-
     private val binding get() = _binding!!
-
 
 
     override fun onCreateView(
@@ -75,37 +65,6 @@ class SignUpFragment : Fragment() {
         passwordEditText = binding.password
         signUpButton = binding.signUp
         rememberMeCheckbox = binding.rememberMe
-
-
-
-      /*  if (rememberMeCheckbox.isChecked &&
-            usernameEditText.text.isNotBlank() &&
-            emailEditText.text.isNotBlank() &&
-            phoneEditText.text.isNotBlank() &&
-            passwordEditText.text.isNotBlank()
-
-        ) {
-            // Perform auto-login
-            loginViewModel.login(
-                usernameEditText.text.toString(),
-                passwordEditText.text.toString()
-            )
-        }*/
-
-
-       /* signUpButton.setOnClickListener {
-            val username = usernameEditText.text.toString().trim()
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
-
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            } else {
-                // Save credentials to preference manager
-                Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
-                // Optionally, you can finish this fragment to prevent going back to it using the back button
-            }
-        }*/
 
         return view
     }

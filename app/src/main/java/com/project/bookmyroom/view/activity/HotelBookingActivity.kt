@@ -14,8 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -23,7 +21,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.project.bookmyroom.R.*
 import com.project.bookmyroom.model.data.BookingDetailsData
 import com.project.bookmyroom.model.data.Hotel
-import com.project.bookmyroom.viewmodel.RecentsData
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -31,9 +28,8 @@ import java.util.Date
 import java.util.Locale
 
 class HotelBookingActivity : AppCompatActivity() {
-    private lateinit var btnBack: ImageButton
     private lateinit var hotelData: Hotel
-    private lateinit var hotelImage: ImageView
+
     private lateinit var hotel_name: TextView
     private lateinit var textViewAddress: TextView
     private lateinit var textViewContact: TextView
@@ -41,13 +37,18 @@ class HotelBookingActivity : AppCompatActivity() {
     private lateinit var engaged_rooms: TextView
     private lateinit var available_rooms: TextView
     private lateinit var total_rooms: TextView
+
     private lateinit var editTextCheckInDate: TextInputEditText
     private lateinit var editTextCheckOutDate: TextInputEditText
     private lateinit var editTextRooms: TextInputEditText
     private lateinit var editTextRoomType: AppCompatSpinner
     private lateinit var editTextPersons: TextInputEditText
+
+    private lateinit var hotelImage: ImageView
+    private lateinit var btnBack: ImageButton
     private lateinit var buttonBookNow: Button
     private lateinit var payment_enter: Button
+
     private lateinit var booking_layout: MaterialCardView
     private lateinit var progress_circular: CircularProgressIndicator
 
@@ -94,10 +95,6 @@ class HotelBookingActivity : AppCompatActivity() {
                 buttonBookNow.visibility = View.GONE
             }
 
-            /*val checkInDate = editTextCheckInDate.text.toString()
-            val checkOutDate = editTextCheckOutDate.text.toString()
-            val rooms = editTextRooms.text.toString().toInt()
-            val persons = editTextPersons.text.toString().toInt()*/
         }
         payment_enter.setOnClickListener {
 
@@ -138,9 +135,6 @@ class HotelBookingActivity : AppCompatActivity() {
         textViewLocation.setOnClickListener {
             loadLocation(this,hotelData.name,hotelData.address)
         }
-            // Perform booking or other actions here
-            // For example:
-            // bookHotel(checkInDate, checkOutDate, rooms, persons)
 
     }
 
@@ -158,13 +152,35 @@ class HotelBookingActivity : AppCompatActivity() {
             return false
         }
         // Additional validation checks if needed
+        val availableRooms = hotelData.availableRooms?.toIntOrNull()
+        val rooms = roomsStr.toIntOrNull()
+        if (availableRooms != null && rooms != null && rooms > availableRooms) {
+            Toast.makeText(this, "Number of rooms entered is greater than available rooms", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val persons = personsStr.toIntOrNull()
+        if (rooms != null && persons != null) {
+            val maxPersonsAllowed = rooms * 2 // Limit to 2 persons per room
+            if (persons > maxPersonsAllowed) {
+                Toast.makeText(this, "Only two person can be allotted in a room.", Toast.LENGTH_SHORT).show()
+                return false
+            }
+        }
+
+
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val checkIn = dateFormat.parse(checkInDate)
         val checkOut = dateFormat.parse(checkOutDate)
 
-        if (checkOut.before(checkIn)) { // Check if check-out date is before check-in date
-            Toast.makeText(this, "Check-out date must be after or equal to check-in date", Toast.LENGTH_SHORT).show()
-            return false
+        if (checkOut != null) {
+            if (checkOut.before(checkIn)) { // Check if check-out date is before check-in date
+                Toast.makeText(this, "Check-out date must be after or equal to check-in date", Toast.LENGTH_SHORT).show()
+                return false
+            }
+        }else{
+            Toast.makeText(this, "Check-out is empty", Toast.LENGTH_SHORT).show()
+
         }
         return true
     }
@@ -193,10 +209,7 @@ class HotelBookingActivity : AppCompatActivity() {
     }
 
     private fun populateData() {
-        // Load and set place image
-        // Example: placeImage.setImageResource(R.drawable.place_image)
 
-        // Set description
         hotel_name.text = hotelData.name
         Glide.with(this)
             .load(hotelData.image)
@@ -207,9 +220,7 @@ class HotelBookingActivity : AppCompatActivity() {
         total_rooms.text = "Total Rooms :${ hotelData.totalRooms }"
         available_rooms.text = "Available :${hotelData.availableRooms}"
         engaged_rooms.text ="Engaged :${ hotelData.engagedRooms}"
-        // Load and set hotels data
-        // Example: hotelsList.addAll(getHotelsNearby())
-        // hotelsAdapter.notifyDataSetChanged()
+
     }
 
     private fun calculateTotalDays(checkInDate: String, checkOutDate: String): Long {
@@ -231,7 +242,7 @@ class HotelBookingActivity : AppCompatActivity() {
         }
     }
 
-    fun loadLocation(ctx: Context, name: String?, address: String?) {
+    private fun loadLocation(ctx: Context, name: String?, address: String?) {
         try {
             val geoUri = "http://maps.google.com/maps?q=$name,$address"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))

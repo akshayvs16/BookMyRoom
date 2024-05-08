@@ -21,22 +21,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MyBookingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyBookingFragment : Fragment() {
 
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var booking_progressLoading_circular: CircularProgressIndicator
-
-
 
     private lateinit var myBookingRecycler: RecyclerView
     private lateinit var noDataText: MaterialTextView
@@ -61,26 +49,13 @@ class MyBookingFragment : Fragment() {
         myBookingRecycler = view.findViewById(R.id.bookingRecyclerview)
         noDataText = view.findViewById(R.id.myBookingDataEmpty)
         if (user != null) {
-
             fetchMyBookingsByUserId(user.userId)
-
         }else{
-
             Log.d("USerNull", "onCreate: User Null")
         }
 
         return view
     }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-
-
-    }
-
 
 
     private fun fetchMyBookingsByUserId(userId: String) {

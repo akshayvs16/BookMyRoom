@@ -45,13 +45,11 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var hotelsRecyclerView: RecyclerView
     private lateinit var hotelsAdapter: RecentsAdapter
     private val hotelsList: MutableList<Hotel> = mutableListOf()
-    private lateinit var trendingData: List<RecentsData>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        trendingData = getTrendingData()
 
          placeData = intent.getSerializableExtra("PLACE_DATA") as NearPlacesData
         Log.d("DetailsActivity", "onCreate: ${placeData?.placeName}")
@@ -66,7 +64,6 @@ class DetailsActivity : AppCompatActivity() {
         nearstBusStop = findViewById(R.id.nearst_busStop)
         nearstRailway = findViewById(R.id.nearst_railway)
         place_location = findViewById(R.id.place_location)
-        trendingData = getTrendingData()
 
 
 
@@ -101,10 +98,7 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun populateData() {
-        // Load and set place image
-        // Example: placeImage.setImageResource(R.drawable.place_image)
 
-        // Set description
         placeHeading.text= placeData?.name
         Glide.with(this)
             .load(placeData?.image)
@@ -115,32 +109,9 @@ class DetailsActivity : AppCompatActivity() {
         val placeId=placeData.id
         fetchHotelsByDistrict(placeId)
 
-        // Load and set hotels data
-        // Example: hotelsList.addAll(getHotelsNearby())
-        // hotelsAdapter.notifyDataSetChanged()
     }
 
-    private fun getHotelsNearby(): List<TopPlacesData> {
-        // Implement logic to load hotels near the place
-        return listOf() // Placeholder return value
-    }
-    private fun getTrendingData(): List<RecentsData> {
-        // Load and parse trending_hotels.json from assets folder
-        return loadJsonData("trendingHotel.json")
-    }
-    private fun loadJsonData(fileName: String): List<RecentsData> {
-        val jsonString = try {
-            val inputStream = this.assets.open(fileName)
-            inputStream.bufferedReader().use { it.readText() }
-        } catch (e: IOException) {
-            Log.e("HomeFragment", "Error reading JSON file: ${e.message}")
-            e.printStackTrace()
-            ""
-        }
 
-        val type = object : TypeToken<List<RecentsData>>() {}.type
-        return Gson().fromJson(jsonString, type) ?: emptyList()
-    }
 
     private fun fetchHotelsByDistrict(districtId: String) {
         progress_circular.visibility= View.VISIBLE

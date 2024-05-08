@@ -1,14 +1,8 @@
 package com.project.bookmyroom.view.activity
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Intent
+
 import android.os.Bundle
-import android.os.Handler
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.project.bookmyroom.R
@@ -23,7 +17,6 @@ class MainActivity : AppCompatActivity() , LocationChangeListener {
     private lateinit var exitDialog: ExitDialog
 companion object{
     var defaultLocation: String = "Thiruvananthapuram" // Default location
-    private const val REQUEST_CODE_DISTRICT_ACTIVITY = 1001
 
 }
 

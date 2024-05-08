@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textview.MaterialTextView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.project.bookmyroom.R
 import com.project.bookmyroom.model.data.DistrictRequest
 import com.project.bookmyroom.model.data.DistrictRequestforPlaces
@@ -22,7 +20,6 @@ import com.project.bookmyroom.model.data.Hotel
 import com.project.bookmyroom.model.data.HotelResponse
 import com.project.bookmyroom.model.data.PlacesResponse
 import com.project.bookmyroom.network.RetrofitClient
-import com.project.bookmyroom.view.activity.DetailsActivity
 import com.project.bookmyroom.view.activity.DistrictActivity
 import com.project.bookmyroom.view.activity.MainActivity
 import com.project.bookmyroom.view.components.adapters.NearPlacesAdapter
@@ -32,31 +29,18 @@ import com.project.bookmyroom.viewmodel.NearPlacesData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() ,LocationChangeListener{
 
     private lateinit var recentRecycler: RecyclerView
     private lateinit var progress_circular: CircularProgressIndicator
     private lateinit var progress_circular2: CircularProgressIndicator
     private lateinit var nearPlaceRecycler: RecyclerView
+
     private var recentAdapter: RecentsAdapter? = null
     private val recentDataList: MutableList<Hotel> = ArrayList()
     private val nearHotelsDataList: MutableList<NearPlacesData> = ArrayList()
     private var nearPlacesAdapter: NearPlacesAdapter? = null
-
-
-
 
     private lateinit var currentLocation:TextView
     private lateinit var hotelData_notFound:MaterialTextView
@@ -64,7 +48,6 @@ class HomeFragment : Fragment() ,LocationChangeListener{
     private lateinit var currentLocation_layout: LinearLayout
 
     private var locationChangeListener: LocationChangeListener? = null
-
     val districtId = getDistrictId(MainActivity.defaultLocation)
 
     override fun onCreateView(
@@ -72,8 +55,6 @@ class HomeFragment : Fragment() ,LocationChangeListener{
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-
 
         progress_circular=view.findViewById(R.id.progress_circular_View)
         progress_circular2=view.findViewById(R.id.progress_circular_View_1)
@@ -89,9 +70,6 @@ class HomeFragment : Fragment() ,LocationChangeListener{
         nearPlaceRecycler = view.findViewById(R.id.near_places_recycler)
         currentLocation = view.findViewById(R.id.currentLocation)
         currentLocation_layout = view.findViewById(R.id.currentLocation_layout)
-
-
-
 
         fetchPlacesByDistrict(districtId)
         fetchHotelsByDistrict(districtId)
